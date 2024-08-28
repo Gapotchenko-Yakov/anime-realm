@@ -1,13 +1,9 @@
-import { Button, Stack, Drawer, Link, List } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import { Drawer, List } from "@mui/material";
 
 import { styled, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -30,7 +26,7 @@ type NavigationPanelProps = {
 };
 
 const NavigationPanel = ({ drawerWidth }: NavigationPanelProps) => {
-  const { NavigationPanel, toggleNavigationPanelOpen } = useComponentsStore();
+  const { NavigationPanel } = useComponentsStore();
 
   const theme: any = useTheme();
 
@@ -49,14 +45,10 @@ const NavigationPanel = ({ drawerWidth }: NavigationPanelProps) => {
       anchor="left"
       open={NavigationPanel.isOpen}
     >
-      <DrawerHeader sx={{ color: "inherit" }}>
-        <IconButton onClick={() => toggleNavigationPanelOpen()}>
-          {theme.direction === "ltr" ? (
-            <ChevronLeftIcon />
-          ) : (
-            <ChevronRightIcon />
-          )}
-        </IconButton>
+      <DrawerHeader sx={{ color: "inherit", ml: "1.5rem", mr: "auto" }}>
+        <Typography variant="h6" textAlign="left">
+          Navigation Panel
+        </Typography>
       </DrawerHeader>
       <Divider />
       <List>

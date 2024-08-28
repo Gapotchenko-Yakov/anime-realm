@@ -1,26 +1,17 @@
-import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
 import {
-  AppBar,
   Avatar,
   Toolbar,
   Typography,
-  Link,
   Button,
   Stack,
   IconButton,
-  Autocomplete,
-  TextField,
 } from "@mui/material";
 
-import {
-  Link as RouterLink,
-  LinkProps as RouterLinkProps,
-  MemoryRouter,
-} from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { DarkMode, LightMode } from "@mui/icons-material";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import {
-  Menu as MenuIcon,
   Reddit as RedditIcon,
   Facebook as FacebookIcon,
   Instagram as InstagramIcon,
@@ -42,7 +33,6 @@ const HeaderToolbar = () => {
     NavigationPanel: { isOpen: navIsOpen },
     toggleNavigationPanelOpen,
   } = useComponentsStore();
-  const navigate = useNavigate();
 
   return (
     <Toolbar
@@ -73,7 +63,11 @@ const HeaderToolbar = () => {
             aria-label="open drawer"
             // sx={{ mr: 2, ...(navIsOpen && { display: "none" }) }}
           >
-            <MenuIcon fontSize="large" />
+            {navIsOpen ? (
+              <ChevronLeftIcon fontSize="large" />
+            ) : (
+              <ChevronRightIcon fontSize="large" />
+            )}
           </IconButton>
           <Avatar
             src="./favicon-bleach.png"
@@ -143,7 +137,7 @@ const HeaderToolbar = () => {
           >
             Menu
           </Button>
-          <IconButton sx={{ color: "inherit" }} onClick={(e) => toggleMode()}>
+          <IconButton sx={{ color: "inherit" }} onClick={() => toggleMode()}>
             {mode === "dark" ? <DarkMode /> : <LightMode />}
           </IconButton>
         </Stack>

@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { ItemDetails, ItemList, NavigationPanel } from "../components";
+import { useState } from "react";
+import { ItemDetails, ItemList } from "../components";
 import {
   Grid,
   Paper,
   TableContainer,
   Table,
   TableBody,
-  TableHead,
   TableRow,
   TableCell,
   useTheme,
-  Box,
 } from "@mui/material";
 import {
   useGetAnimeFullByIdQuery,
@@ -79,7 +77,7 @@ const AnimeList = () => {
         item
         xs={12}
         md={4}
-        sx={{ display: { sm: "none", md: "flex" } }}
+        // sx={{ display: { sm: "none", md: "flex" } }}
       ></Grid>
       <Grid item xs={12} md={4}>
         <ItemList

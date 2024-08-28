@@ -1,33 +1,39 @@
-import { Outlet } from "react-router-dom";
-import { AppBar, useMediaQuery } from "@mui/material";
-
-import { styled, useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
+import { useTheme } from "@mui/material/styles";
 
 import HeaderToolbar from "./HeaderToolbar/HeaderToolbar";
+import { Outlet } from "react-router-dom";
+import { AppBar, Toolbar } from "@mui/material";
+import { useComponentsStore } from "../lib/zustand/useComponentsStore";
+import NavigationPanel from "./NavigationPanel";
 
 const Layout = () => {
   const theme = useTheme();
-  const isNonMobile = useMediaQuery("(min-width: 600px)");
+  // const isNonMobile = useMediaQuery("(min-width: 600px)");
+
+  const {
+    NavigationPanel: { isOpen: open },
+  } = useComponentsStore();
+
+  const drawerWidth = open ? 250 : 0;
 
   return (
-    <Box
-      width="100%"
-      height="100%"
-      sx={{ bgcolor: theme.palette.background.default }}
-    >
+    <div style={{ display: "flex" }}>
       <AppBar
-        // position="fixed"
+        position="fixed"
         sx={{
+          width: `calc(100% - ${drawerWidth}px)`,
+          ml: `${drawerWidth}px`,
           bgcolor: theme.palette.background.alt,
-          // boxShadow: 0,
-          position: "static",
         }}
       >
         <HeaderToolbar />
       </AppBar>
-      <Outlet />
-    </Box>
+      <NavigationPanel drawerWidth={drawerWidth} />
+      <main style={{ flexGrow: 1, padding: "16px", marginLeft: drawerWidth }}>
+        <Toolbar />
+        <Outlet /> {/* Рендеринг дочерних маршрутов */}
+      </main>
+    </div>
   );
 };
 

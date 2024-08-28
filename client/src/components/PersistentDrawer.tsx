@@ -57,12 +57,7 @@ export default function PersistentDrawer({ Content }: any) {
   const theme: any = useTheme();
   const {
     NavigationPanel: { isOpen: open },
-    toggleNavigationPanelOpen,
   } = useComponentsStore();
-
-  const handleDrawerClose = () => {
-    toggleNavigationPanelOpen();
-  };
 
   return (
     <Box sx={{ display: "flex" }}>

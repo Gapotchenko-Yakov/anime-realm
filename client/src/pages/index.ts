@@ -1,5 +1,5 @@
-import AnimeList from "./anime-list/anime-list";
-import AnimePage from "./anime-page/anime-page";
-import Home from "./home/home";
+import AnimeList from "./AnimeList";
+import AnimePage from "./AnimePage";
+import Home from "./Home";
 
 export { AnimeList, AnimePage, Home };

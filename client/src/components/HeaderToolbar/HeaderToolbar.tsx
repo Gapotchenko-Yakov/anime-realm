@@ -36,7 +36,7 @@ import {
 import { useDispatch } from "react-redux";
 import { actions as componentActions } from "../../store/components";
 import { useTheme } from "@mui/material";
-import Search from "./components/search";
+import Search from "./components/Search";
 
 const HeaderToolbar = () => {
   const mode = useSelector((state: RootState) => state.mui.theme.mode);

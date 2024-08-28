@@ -1,5 +1,5 @@
-import Spinner from "../spinner";
-import ErrorIndicator from "../error-indicator";
+import Spinner from "./Spinner";
+import ErrorIndicator from "./ErrorIndicator";
 import {
   Avatar,
   Button,
@@ -10,12 +10,11 @@ import {
   Typography,
 } from "@mui/material";
 
-import { AnimeFull } from "../../types/api/jikan";
-import { UseQueryData } from "../../types/rtk-query";
+import { AnimeFull } from "../types/api/jikan";
 
 type ItemDetailsProps = {
   itemId: number;
-  getData: UseQueryData<AnimeFull, number>; //(id: number) => object;
+  getData: any; // UseQueryData<AnimeFull, number>; //(id: number) => object;
   getImageUrl?: (id: number) => string;
   renderItemDetails: (fullItem: AnimeFull["data"] | undefined) => JSX.Element;
 };
@@ -23,7 +22,12 @@ type ItemDetailsProps = {
 const ItemDetails = (props: ItemDetailsProps) => {
   const { itemId, renderItemDetails = () => {}, getData } = props;
 
-  const { data: { data: item } = {}, error, isLoading, data } = getData(itemId);
+  const {
+    data: { data: item = {} } = {},
+    error,
+    isLoading,
+    data,
+  } = getData(itemId);
 
   if (isLoading) {
     return <Spinner />;

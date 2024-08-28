@@ -4,8 +4,6 @@ import { AppBar, useMediaQuery } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 
-import PersistentDrawer from "../persistent-drawer/persistent-drawer";
-import NavigationPanel from "./NavigationPanel";
 import HeaderToolbar from "./HeaderToolbar/HeaderToolbar";
 
 const Layout = () => {

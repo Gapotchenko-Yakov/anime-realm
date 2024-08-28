@@ -1,13 +1,10 @@
-import {
-  PaletteMode,
-  PaletteOptions,
-  ThemeOptions,
-  TypeBackground,
-} from "@mui/material";
-import { IColorTokensAll, IColorTokensGroup } from "../types/mui";
+import { PaletteMode, ThemeOptions, TypeBackground } from "@mui/material";
 
-// color design tokens
-export const tokensDark: IColorTokensAll = {
+// Определение типа для цветовых токенов
+type ColorTokens = Record<string, Record<number, string>>;
+
+// Цветовые токены для темного режима
+export const tokensDark: ColorTokens = {
   grey: {
     0: "#ffffff", // manually adjusted
     10: "#f6f6f6", // manually adjusted
@@ -24,7 +21,6 @@ export const tokensDark: IColorTokensAll = {
     1000: "#000000", // manually adjusted
   },
   primary: {
-    // blue
     100: "#d3d4de",
     200: "#a6a9be",
     300: "#7a7f9d",
@@ -36,7 +32,6 @@ export const tokensDark: IColorTokensAll = {
     900: "#070812",
   },
   secondary: {
-    // yellow
     50: "#f0f0f0", // manually adjusted
     100: "#fff6e0",
     200: "#ffedc2",
@@ -50,14 +45,14 @@ export const tokensDark: IColorTokensAll = {
   },
 };
 
-// function that reverses the color palette
-function reverseTokens(tokensDark: IColorTokensAll): IColorTokensAll {
-  const reversedTokens: IColorTokensAll = {} as IColorTokensAll;
-  Object.entries(tokensDark).forEach(([key, val]: [string, object]) => {
+// Функция, которая переворачивает цветовую палитру
+function reverseTokens(tokens: ColorTokens): ColorTokens {
+  const reversedTokens: ColorTokens = {};
+  Object.entries(tokens).forEach(([key, val]) => {
     const keys: number[] = Object.keys(val).map(Number);
     const values: string[] = Object.values(val);
     const length = keys.length;
-    const reversedObj: IColorTokensGroup = {} as IColorTokensGroup;
+    const reversedObj: Record<number, string> = {};
     for (let i = 0; i < length; i++) {
       reversedObj[keys[i]] = values[length - i - 1];
     }
@@ -65,16 +60,18 @@ function reverseTokens(tokensDark: IColorTokensAll): IColorTokensAll {
   });
   return reversedTokens;
 }
+
+// Цветовые токены для светлого режима
 export const tokensLight = reverseTokens(tokensDark);
 
-// mui theme settings
+// Настройки темы MUI
 export const themeSettings = (mode: PaletteMode): ThemeOptions => {
   return {
     palette: {
       mode: mode,
       ...(mode === "dark"
         ? {
-            // palette values for dark mode
+            // Цветовая палитра для темного режима
             primary: {
               ...tokensDark.primary,
               main: tokensDark.primary[400],
@@ -94,7 +91,7 @@ export const themeSettings = (mode: PaletteMode): ThemeOptions => {
             } as Partial<TypeBackground>,
           }
         : {
-            // palette values for light mode
+            // Цветовая палитра для светлого режима
             primary: {
               ...tokensLight.primary,
               main: tokensDark.grey[50],

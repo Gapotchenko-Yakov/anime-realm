@@ -1,6 +1,6 @@
 import { Autocomplete, TextField } from "@mui/material";
 import React, { useMemo } from "react";
-import { useGetAnimeListQuery } from "../../../store/api/jikan-service";
+import { useGetAnimeListQuery } from "../../../lib/tanstack-query/useAnimeQueries";
 import { useNavigate } from "react-router-dom";
 import { useComponentsStore } from "../../../lib/zustand/useComponentsStore";
 

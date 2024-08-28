@@ -53,7 +53,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
 //   Content: ReactJSXElement;
 // };
 
-export default function PersistentDrawer({ Content }: { Content: unknown }) {
+export default function PersistentDrawer({ Content }: any) {
   const theme: any = useTheme();
   const {
     NavigationPanel: { isOpen: open },

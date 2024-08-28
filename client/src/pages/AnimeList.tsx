@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ItemDetails, ItemList, NavigationPanel } from "../../components";
+import { ItemDetails, ItemList, NavigationPanel } from "../components";
 import {
   Grid,
   Paper,
@@ -13,10 +13,10 @@ import {
   Box,
 } from "@mui/material";
 import {
-  useGetAnimeFullByldQuery,
+  useGetAnimeFullByIdQuery,
   useGetAnimeListQuery,
-} from "../../store/api/jikan-service";
-import { AnimeFull } from "../../types/api/jikan";
+} from "../lib/tanstack-query/useAnimeQueries";
+import { AnimeFull } from "../types/api/jikan";
 
 const AnimeList = () => {
   const [itemId, setItemId] = useState<number>(17);
@@ -91,7 +91,7 @@ const AnimeList = () => {
       <Grid item xs={12} md={4}>
         <ItemDetails
           itemId={itemId}
-          getData={useGetAnimeFullByldQuery}
+          getData={useGetAnimeFullByIdQuery}
           renderItemDetails={renderItemDetails}
         />
       </Grid>

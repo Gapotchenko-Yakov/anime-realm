@@ -30,8 +30,6 @@ import {
   Shuffle as ShuffleIcon,
   FormatListBulleted as FormatListBulletedIcon,
 } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
-import { actions as componentActions } from "../../store/components";
 import { useTheme } from "@mui/material";
 import Search from "./components/Search";
 import { useThemeStore } from "../../lib/zustand/useThemeStore";
@@ -145,10 +143,7 @@ const HeaderToolbar = () => {
           >
             Menu
           </Button>
-          <IconButton
-            sx={{ color: "inherit" }}
-            onClick={(e) => toggleMode(mode)}
-          >
+          <IconButton sx={{ color: "inherit" }} onClick={(e) => toggleMode()}>
             {mode === "dark" ? <DarkMode /> : <LightMode />}
           </IconButton>
         </Stack>

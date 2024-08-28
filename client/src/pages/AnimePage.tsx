@@ -19,8 +19,8 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { useGetAnimeListQuery } from "../../store/api/jikan-service";
-import { AnimeList } from "../../types/api/jikan";
+import { useGetAnimeListQuery } from "../lib/tanstack-query/useAnimeQueries";
+import { AnimeList } from "../types/api/jikan";
 import { Info as InfoIcon } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";

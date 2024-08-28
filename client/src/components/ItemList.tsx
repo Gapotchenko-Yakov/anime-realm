@@ -1,6 +1,5 @@
-import ErrorIndicator from "../error-indicator";
-import Spinner from "../spinner";
-import { RootState } from "../../types/redux";
+import ErrorIndicator from "./ErrorIndicator";
+import Spinner from "./Spinner";
 import {
   List,
   ListItem,
@@ -9,14 +8,13 @@ import {
   ListItemText,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { AnimeList, GetAnimeListArg } from "../../types/api/jikan";
-import { UseQueryData } from "../../types/rtk-query";
+import { AnimeList, GetAnimeListArg } from "../types/api/jikan";
 import { useThemeStore } from "../lib/zustand/useThemeStore";
 
 type ItemListProps = {
   itemId: number;
   setItemId: (id: number) => void;
-  getData: UseQueryData<AnimeList, GetAnimeListArg>;
+  getData: any; //UseQueryData<AnimeList, GetAnimeListArg>;
 };
 
 const ItemList = (props: ItemListProps) => {
@@ -37,7 +35,7 @@ const ItemList = (props: ItemListProps) => {
 
   return (
     <List>
-      {items.map((item) => {
+      {items.map((item: any) => {
         const id = item.mal_id;
 
         return (

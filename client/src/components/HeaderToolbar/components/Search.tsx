@@ -1,19 +1,16 @@
 import { Autocomplete, TextField } from "@mui/material";
 import React, { useMemo } from "react";
 import { useGetAnimeListQuery } from "../../../store/api/jikan-service";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store";
-import { useDispatch } from "react-redux";
-import { actions as componentsActions } from "../../../store/components";
 import { useNavigate } from "react-router-dom";
+import { useComponentsStore } from "../../../lib/zustand/useComponentsStore";
 
 const Search = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const query = useSelector(
-    (state: RootState) => state.components.Search.query
-  );
+  const {
+    Search: { query },
+    setSearchQuery,
+  } = useComponentsStore();
   const { data: { data: items } = {} } = useGetAnimeListQuery({
     limit: 12,
     q: query,
@@ -42,7 +39,7 @@ const Search = () => {
   ) => {
     const value = e.target.value;
 
-    if (value) dispatch(componentsActions.changeQuery(value));
+    if (value) setSearchQuery(value);
   };
 
   const handleAutocompleteChange = (

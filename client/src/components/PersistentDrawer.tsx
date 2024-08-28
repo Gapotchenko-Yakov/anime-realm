@@ -1,13 +1,10 @@
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
-import HeaderToolbar from "../header-toolbar/header-toolbar";
-import { useDispatch } from "react-redux";
-import { actions as componentActions } from "../../store/components";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
-import NavigationPanel from "../navigation-panel";
+
+import { useComponentsStore } from "../lib/zustand/useComponentsStore";
+import HeaderToolbar from "./HeaderToolbar/HeaderToolbar";
+import NavigationPanel from "./NavigationPanel";
 
 const drawerWidth = 240;
 
@@ -52,19 +49,19 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   }),
 }));
 
-type PersistentDrawer = {
-  Content: ReactJSXElement;
-};
+// type PersistentDrawer = {
+//   Content: ReactJSXElement;
+// };
 
-export default function PersistentDrawer({ Content }: PersistentDrawer) {
+export default function PersistentDrawer({ Content }: { Content: unknown }) {
   const theme: any = useTheme();
-  const dispatch = useDispatch();
-  const open = useSelector(
-    (state: RootState) => state.components.NavigationPanel.isOpen
-  );
+  const {
+    NavigationPanel: { isOpen: open },
+    toggleNavigationPanelOpen,
+  } = useComponentsStore();
 
   const handleDrawerClose = () => {
-    dispatch(componentActions.toggleNavIsOpen());
+    toggleNavigationPanelOpen();
   };
 
   return (

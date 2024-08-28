@@ -19,9 +19,6 @@ import {
   MemoryRouter,
 } from "react-router-dom";
 import { DarkMode, LightMode } from "@mui/icons-material";
-import { useActions } from "../../hooks";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
 import {
   Menu as MenuIcon,
   Reddit as RedditIcon,
@@ -37,17 +34,17 @@ import { useDispatch } from "react-redux";
 import { actions as componentActions } from "../../store/components";
 import { useTheme } from "@mui/material";
 import Search from "./components/Search";
+import { useThemeStore } from "../../lib/zustand/useThemeStore";
+import { useComponentsStore } from "../../lib/zustand/useComponentsStore";
 
 const HeaderToolbar = () => {
-  const mode = useSelector((state: RootState) => state.mui.theme.mode);
+  const { mode, toggleMode } = useThemeStore();
   const theme: any = useTheme();
-  const dispatch = useDispatch();
-  const navIsOpen = useSelector(
-    (state: RootState) => state.components.NavigationPanel.isOpen
-  );
+  const {
+    NavigationPanel: { isOpen: navIsOpen },
+    toggleNavigationPanelOpen,
+  } = useComponentsStore();
   const navigate = useNavigate();
-
-  const { toggleMode } = useActions();
 
   return (
     <Toolbar
@@ -74,7 +71,7 @@ const HeaderToolbar = () => {
             size="large"
             color="inherit"
             edge="start"
-            onClick={() => dispatch(componentActions.toggleNavIsOpen())}
+            onClick={() => toggleNavigationPanelOpen()}
             aria-label="open drawer"
             // sx={{ mr: 2, ...(navIsOpen && { display: "none" }) }}
           >

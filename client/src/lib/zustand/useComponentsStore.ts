@@ -8,6 +8,7 @@ interface ComponentsState {
   Search: {
     query: string;
   };
+  toggleNavigationPanelOpen: () => void;
   setNavigationPanelOpen: (isOpen: boolean) => void;
   setSearchQuery: (query: string) => void;
 }
@@ -15,6 +16,13 @@ interface ComponentsState {
 export const useComponentsStore = create<ComponentsState>((set) => ({
   NavigationPanel: { isOpen: false },
   Search: { query: "" },
+  toggleNavigationPanelOpen: () =>
+    set((state) => ({
+      NavigationPanel: {
+        ...state.NavigationPanel,
+        isOpen: !state.NavigationPanel.isOpen,
+      },
+    })),
   setNavigationPanelOpen: (isOpen) =>
     set((state) => ({
       NavigationPanel: { ...state.NavigationPanel, isOpen },

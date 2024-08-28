@@ -9,9 +9,9 @@ import {
   ListItemText,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { useSelector } from "react-redux";
 import { AnimeList, GetAnimeListArg } from "../../types/api/jikan";
 import { UseQueryData } from "../../types/rtk-query";
+import { useThemeStore } from "../lib/zustand/useThemeStore";
 
 type ItemListProps = {
   itemId: number;
@@ -20,7 +20,7 @@ type ItemListProps = {
 };
 
 const ItemList = (props: ItemListProps) => {
-  const mode = useSelector((state: RootState) => state.mui.theme.mode);
+  const { mode } = useThemeStore();
 
   const { getData, itemId, setItemId } = props;
 

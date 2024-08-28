@@ -4,12 +4,12 @@ import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import { Layout } from "./components";
 import { Box, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { themeSettings } from "./mui/theme";
-import { RootState } from "./store";
 import { AnimePage, AnimeList, Home } from "./pages";
 import AnimeInfo from "./pages/AnimeInfo";
+import { useThemeStore } from "./lib/zustand/useThemeStore";
 
 const App = () => {
-  const mode = useSelector((state: RootState) => state.mui.theme.mode);
+  const { mode } = useThemeStore();
 
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   // const theme = useMemo(() => createTheme(themeSettings), []);

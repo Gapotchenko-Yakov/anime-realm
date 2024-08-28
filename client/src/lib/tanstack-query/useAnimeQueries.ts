@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import {
   AnimeCharacters,
   AnimeEpisodes,
@@ -16,9 +16,11 @@ import apiClient from "../services/apiClient";
 /**
  * Хук для получения полной информации об аниме по ID.
  * @param {number} id - ID аниме.
- * @returns {Object} Результат запроса, содержащий данные о полном аниме.
+ * @returns {UseQueryResult<AnimeFull, Error>} Результат запроса, содержащий данные о полном аниме.
  */
-export const useGetAnimeFullByIdQuery = (id: number) => {
+export const useGetAnimeFullByIdQuery = (
+  id: number
+): UseQueryResult<AnimeFull, Error> => {
   return useQuery<AnimeFull>({
     queryKey: ["anime", id, "full"], // Ключ запроса
     queryFn: async () => {
@@ -31,7 +33,7 @@ export const useGetAnimeFullByIdQuery = (id: number) => {
 /**
  * Хук для получения персонажей аниме по ID.
  * @param {number} id - ID аниме.
- * @returns {Object} Результат запроса, содержащий данные о персонажах аниме.
+ * @returns {UseQueryResult} Результат запроса, содержащий данные о персонажах аниме.
  */
 export const useGetAnimeCharactersQuery = (id: number) => {
   return useQuery<AnimeCharacters>({
@@ -48,7 +50,7 @@ export const useGetAnimeCharactersQuery = (id: number) => {
 /**
  * Хук для получения новостей аниме по ID.
  * @param {number} id - ID аниме.
- * @returns {Object} Результат запроса, содержащий данные о новостях аниме.
+ * @returns {UseQueryResult} Результат запроса, содержащий данные о новостях аниме.
  */
 export const useGetAnimeNewsQuery = (id: number) => {
   return useQuery<AnimeNews>({
@@ -63,7 +65,7 @@ export const useGetAnimeNewsQuery = (id: number) => {
 /**
  * Хук для получения эпизодов аниме по ID.
  * @param {number} id - ID аниме.
- * @returns {Object} Результат запроса, содержащий данные о эпизодах аниме.
+ * @returns {UseQueryResult} Результат запроса, содержащий данные о эпизодах аниме.
  */
 export const useGetAnimeEpisodesQuery = (id: number) => {
   return useQuery<AnimeEpisodes>({
@@ -80,7 +82,7 @@ export const useGetAnimeEpisodesQuery = (id: number) => {
 /**
  * Хук для получения изображений аниме по ID.
  * @param {number} id - ID аниме.
- * @returns {Object} Результат запроса, содержащий данные о изображениях аниме.
+ * @returns {UseQueryResult} Результат запроса, содержащий данные о изображениях аниме.
  */
 export const useGetAnimePicturesQuery = (id: number) => {
   return useQuery<AnimePictures>({
@@ -97,7 +99,7 @@ export const useGetAnimePicturesQuery = (id: number) => {
 /**
  * Хук для получения рекомендаций по аниме по ID.
  * @param {number} id - ID аниме.
- * @returns {Object} Результат запроса, содержащий данные о рекомендациях по аниме.
+ * @returns {UseQueryResult} Результат запроса, содержащий данные о рекомендациях по аниме.
  */
 export const useGetAnimeRecommendationsQuery = (id: number) => {
   return useQuery<AnimeRecommendations>({
@@ -114,7 +116,7 @@ export const useGetAnimeRecommendationsQuery = (id: number) => {
 /**
  * Хук для получения статистики аниме по ID.
  * @param {number} id - ID аниме.
- * @returns {Object} Результат запроса, содержащий данные о статистике аниме.
+ * @returns {UseQueryResult} Результат запроса, содержащий данные о статистике аниме.
  */
 export const useGetAnimeStatisticsQuery = (id: number) => {
   return useQuery<AnimeStatistics>({
@@ -131,7 +133,7 @@ export const useGetAnimeStatisticsQuery = (id: number) => {
 /**
  * Хук для получения списка аниме по аргументам запроса.
  * @param {GetAnimeListArg} args - Параметры для запроса списка аниме.
- * @returns {Object} Результат запроса, содержащий данные о списке аниме.
+ * @returns {UseQueryResult} Результат запроса, содержащий данные о списке аниме.
  */
 export const useGetAnimeListQuery = (args: GetAnimeListArg) => {
   return useQuery<AnimeList>({

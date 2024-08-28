@@ -4,10 +4,9 @@ import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import { Layout } from "./components";
 import { Box, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { themeSettings } from "./mui/theme";
-import { useSelector } from "react-redux";
 import { RootState } from "./store";
 import { AnimePage, AnimeList, Home } from "./pages";
-import AnimeInfo from "./pages/anime-info/anime-info";
+import AnimeInfo from "./pages/AnimeInfo";
 
 const App = () => {
   const mode = useSelector((state: RootState) => state.mui.theme.mode);

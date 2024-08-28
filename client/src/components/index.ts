@@ -1,11 +1,11 @@
-import ErrorIndicator from "./error-indicator";
-import Footer from "./footer";
-import HeaderToolbar from "./header-toolbar";
-import ItemDetails from "./item-details";
-import ItemList from "./item-list";
-import Layout from "./layout";
-import Spinner from "./spinner";
-import NavigationPanel from "./navigation-panel";
+import ErrorIndicator from "./ErrorIndicator";
+import Footer from "./Footer";
+import HeaderToolbar from "./HeaderToolbar";
+import ItemDetails from "./ItemDetails";
+import ItemList from "./ItemList";
+import Layout from "./Layout";
+import Spinner from "./Spinner";
+import NavigationPanel from "./NavigationPanel";
 
 export {
   ErrorIndicator,

@@ -5,8 +5,8 @@ import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 
 import PersistentDrawer from "../persistent-drawer/persistent-drawer";
-import NavigationPanel from "../navigation-panel";
-import HeaderToolbar from "../header-toolbar/header-toolbar";
+import NavigationPanel from "./NavigationPanel";
+import HeaderToolbar from "./HeaderToolbar/HeaderToolbar";
 
 const Layout = () => {
   const theme = useTheme();

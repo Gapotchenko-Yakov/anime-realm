@@ -8,7 +8,6 @@ import {
   ListItemText,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { AnimeList, GetAnimeListArg } from "../types/api/jikan";
 import { useThemeStore } from "../lib/zustand/useThemeStore";
 
 type ItemListProps = {
@@ -33,6 +32,10 @@ const ItemList = (props: ItemListProps) => {
     return <ErrorIndicator />;
   }
 
+  if (!items || items.length === 0) {
+    return null;
+  }
+
   return (
     <List>
       {items.map((item: any) => {
@@ -55,7 +58,7 @@ const ItemList = (props: ItemListProps) => {
             // className={`${itemId === id ? "bg-cyan-600" : "bg-cyan-300"}`}
             disablePadding
           >
-            <ListItemButton onClick={(e) => setItemId(id)}>
+            <ListItemButton onClick={() => setItemId(id)}>
               <ListItemAvatar>{item?.title[0]}</ListItemAvatar>
               <ListItemText primary={item.title} />
             </ListItemButton>

@@ -2,7 +2,7 @@ import { useTheme } from "@mui/material/styles";
 
 import HeaderToolbar from "./HeaderToolbar/HeaderToolbar";
 import { Outlet } from "react-router-dom";
-import { AppBar, Box, Toolbar } from "@mui/material";
+import { AppBar, Box, Toolbar, Container } from "@mui/material";
 import { useComponentsStore } from "../lib/zustand/useComponentsStore";
 import NavigationPanel from "./NavigationPanel";
 
@@ -29,7 +29,7 @@ const Layout = () => {
         <HeaderToolbar />
       </AppBar>
       <NavigationPanel drawerWidth={drawerWidth} />
-      <Box
+      <Container
         component="main"
         sx={{
           flexGrow: 1,
@@ -37,10 +37,13 @@ const Layout = () => {
           // ml: `${drawerWidth}px`,
           width: `calc(100% - ${drawerWidth}px)`,
           mt: "64px",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
         }}
       >
         <Outlet /> {/* Рендеринг дочерних маршрутов */}
-      </Box>
+      </Container>
     </Box>
   );
 };

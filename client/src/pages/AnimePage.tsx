@@ -13,17 +13,13 @@ import {
   ImageList,
   ImageListItem,
   ImageListItemBar,
-  List,
-  ListItem,
-  ListItemText,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
 import { useGetAnimeListQuery } from "../lib/tanstack-query/useAnimeQueries";
-import { AnimeList } from "../types/api/jikan";
 import { Info as InfoIcon } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { ErrorIndicator, Spinner } from "../components";
 
 const AnimePage = () => {
   // theme
@@ -64,20 +60,25 @@ const AnimePage = () => {
 
   const pagesTotal = Math.ceil(itemsTotal / itemsPerPage);
 
+  if (isLoading) return <Spinner />; // Показываем индикатор загрузки
+  if (error) return <ErrorIndicator message="Ошибка загрузки данных" />;
+
+  // Если данные загружены, отображаем информацию
+  if (!animeList || animeList.length === 0) return null;
+
   return (
     <Box sx={{ bgcolor: palette.background.default }}>
       <Grid
         container
         sx={{
-          // width: "100%",
           bgcolor: "inherit",
-          "& .MuiBox-root": { borderRadius: 3 },
+          "& .MuiBox-root": { borderRadius: 2 },
         }}
       >
         <Grid
           item
           xs={12}
-          md={9}
+          lg={9}
           sx={{
             bgcolor: "inherit",
           }}
@@ -105,28 +106,29 @@ const AnimePage = () => {
               gap={8}
               sx={{
                 p: 2,
-                "& .MuiImageListItem-img": { borderRadius: 5 },
+                "& .MuiImageListItem-img": { borderRadius: 2 },
                 "& .MuiImageListItemBar-root": {
-                  borderBottomLeftRadius: 20,
-                  borderBottomRightRadius: 20,
+                  borderBottomLeftRadius: 10,
+                  borderBottomRightRadius: 10,
                 },
               }}
             >
               {animeList.map((item: any) => (
                 <ImageListItem
-                  key={item?.images?.jpg?.large_image_url}
+                  key={item.images.jpg.large_image_url}
                   cols={1}
                   sx={{
                     minWidth: 180,
                     maxWidth: 280,
                     ":hover": {
                       opacity: 0.4,
+                      cursor: "pointer",
                     },
                     ":hover .MuiSvgIcon-root": {
                       visibility: "visible",
                     },
                   }}
-                  onClick={() => navigate(`/anime-info/${item?.mal_id}`)}
+                  onClick={() => navigate(`/anime-info/${item.mal_id}`)}
                 >
                   <PlayArrowIcon
                     // fontSize="large"
@@ -145,9 +147,9 @@ const AnimePage = () => {
                     }}
                   />
                   <img
-                    srcSet={`${item?.images?.jpg?.large_image_url}`}
-                    src={`${item?.images?.jpg?.large_image_url}`}
-                    alt={item?.title}
+                    srcSet={`${item.images.jpg.large_image_url}`}
+                    src={`${item.images.jpg.large_image_url}`}
+                    alt={item.title}
                     loading="lazy"
                     style={{
                       objectFit: "cover",
@@ -156,8 +158,8 @@ const AnimePage = () => {
                   />
                   <ImageListItemBar
                     title={item.title}
-                    subtitle={item?.genres
-                      ?.map((genre: { name: string }) => genre?.name)
+                    subtitle={item.genres
+                      .map((genre: { name: string }) => genre.name)
                       .join(", ")}
                     actionIcon={
                       <IconButton
@@ -175,13 +177,17 @@ const AnimePage = () => {
             </ImageList>
           </Box>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} lg={3}>
           <Box
             sx={{
-              minHeight: 610,
+              height: "80vh",
+              minHeight: 400,
+              minWidth: 280,
               bgcolor: palette.background.alt,
               m: 3,
               textAlign: "center",
+              position: "fixed",
+              right: 20,
             }}
           >
             Current Anime
@@ -194,6 +200,8 @@ const AnimePage = () => {
           p: 2,
           mx: 4,
           my: 1,
+          display: "flex",
+          justifyContent: "center",
         }}
       >
         <Pagination

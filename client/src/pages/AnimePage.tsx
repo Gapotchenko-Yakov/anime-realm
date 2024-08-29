@@ -1,7 +1,11 @@
 import {
+  Card,
+  CardContent,
+  CardMedia,
   Container,
   Pagination,
   PaginationItem,
+  Skeleton,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -15,11 +19,19 @@ import {
   ImageListItemBar,
   Typography,
 } from "@mui/material";
-import { useGetAnimeListQuery } from "../lib/tanstack-query/useAnimeQueries";
+import {
+  useGetAnimeFullByIdQuery,
+  useGetAnimeListQuery,
+} from "../lib/tanstack-query/useAnimeQueries";
 import { Info as InfoIcon } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ErrorIndicator, Spinner } from "../components";
+import { useEffect, useState } from "react";
+
+const MIN_ANIME_FULL_ID = 1,
+  MAX_ANIME_FULL_ID = 6528,
+  RANDOM_ANIME_INTERVAL = 8000;
 
 const AnimePage = () => {
   // theme
@@ -44,7 +56,7 @@ const AnimePage = () => {
 
   const {
     data: {
-      data: animeList = [],
+      data: animeList,
       pagination: {
         last_visible_page: lastVisiblePage = 1,
         items: {
@@ -58,13 +70,44 @@ const AnimePage = () => {
     isLoading,
   } = useGetAnimeListQuery({ page, limit: PAGE_LIMIT, sfw: true });
 
+  const [randomAnimeId, setRandomAnimeId] = useState(7);
+  console.log("🚀 ~ AnimePage ~ randomAnimeId:", randomAnimeId);
+
+  useEffect(() => {
+    const getRandomInt = (min: number, max: number) => {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+
+    const generateId = () => getRandomInt(MIN_ANIME_FULL_ID, MAX_ANIME_FULL_ID);
+
+    setRandomAnimeId(generateId());
+
+    const interval = setInterval(
+      () => setRandomAnimeId(generateId()),
+      RANDOM_ANIME_INTERVAL
+    );
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const {
+    data: { data: randomAnime } = {},
+    error: randomAnimeError,
+    isLoading: randomAnimeIsLoading,
+  } = useGetAnimeFullByIdQuery(randomAnimeId);
+
+  if (randomAnimeError) {
+  }
+
   const pagesTotal = Math.ceil(itemsTotal / itemsPerPage);
 
   if (isLoading) return <Spinner />; // Показываем индикатор загрузки
   if (error) return <ErrorIndicator message="Ошибка загрузки данных" />;
 
   // Если данные загружены, отображаем информацию
-  if (!animeList || animeList.length === 0) return null;
+  if (!animeList) return null;
 
   return (
     <Box sx={{ bgcolor: palette.background.default }}>
@@ -176,52 +219,99 @@ const AnimePage = () => {
               ))}
             </ImageList>
           </Box>
-        </Grid>
-        <Grid item xs={12} lg={3}>
-          <Box
+          <Container
             sx={{
-              height: "80vh",
-              minHeight: 400,
-              minWidth: 280,
-              bgcolor: palette.background.alt,
-              m: 3,
-              textAlign: "center",
-              position: "fixed",
-              right: 20,
+              bgcolor: "inherit",
+              p: 2,
+              mx: 4,
+              my: 1,
+              display: "flex",
+              justifyContent: "center",
             }}
           >
-            Current Anime
-          </Box>
+            <Pagination
+              page={page}
+              count={pagesTotal}
+              sx={{
+                bgcolor: "inherit",
+                justifyContent: "center",
+                color: palette.secondary[100],
+              }}
+              variant="outlined"
+              renderItem={(item) => (
+                <PaginationItem
+                  component={Link}
+                  to={`/anime-page${
+                    item.page === 1 ? "" : `?page=${item.page}`
+                  }`}
+                  {...item}
+                />
+              )}
+            />
+          </Container>
+        </Grid>
+        <Grid item xs={12} lg={3}>
+          {randomAnimeError ? (
+            <ErrorIndicator
+              sx={{
+                height: "80vh",
+                minHeight: 400,
+                width: 280,
+                m: 3,
+                position: "fixed",
+                right: 10,
+              }}
+            />
+          ) : randomAnimeIsLoading || !randomAnime ? (
+            <Skeleton
+              variant="rounded"
+              sx={{
+                height: "80vh",
+                minHeight: 400,
+                width: 280,
+                m: 3,
+                position: "fixed",
+                right: 10,
+              }}
+            />
+          ) : (
+            <Card
+              sx={{
+                height: "80vh",
+                minHeight: 400,
+                width: 280,
+                bgcolor: palette.background.alt,
+                m: 3,
+                textAlign: "center",
+                position: "fixed",
+                right: 10,
+                "& *": { bgcolor: "inherit" },
+              }}
+            >
+              <CardMedia
+                component="img"
+                height="140"
+                image={randomAnime.images.jpg.image_url}
+                alt={randomAnime.title}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {randomAnime.title_english || randomAnime.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Episodes: {randomAnime.episodes}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Score: {randomAnime.score}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Aired: {randomAnime.aired.from} to {randomAnime.aired.to}
+                </Typography>
+              </CardContent>
+            </Card>
+          )}
         </Grid>
       </Grid>
-      <Container
-        sx={{
-          bgcolor: "inherit",
-          p: 2,
-          mx: 4,
-          my: 1,
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <Pagination
-          page={page}
-          count={pagesTotal}
-          sx={{
-            bgcolor: "inherit",
-            justifyContent: "center",
-            color: palette.secondary[100],
-          }}
-          variant="outlined"
-          renderItem={(item) => (
-            <PaginationItem
-              component={Link}
-              to={`/anime-page${item.page === 1 ? "" : `?page=${item.page}`}`}
-              {...item}
-            />
-          )}
-        />
-      </Container>
     </Box>
   );
 };

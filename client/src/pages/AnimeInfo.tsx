@@ -36,8 +36,6 @@ const AnimeInfo = () => {
   // Если данные загружены, отображаем информацию
   if (!animeData) return null;
 
-  console.log("🚀 ~ AnimeInfo ~ animeData:", animeData);
-
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} sm={4}>
@@ -47,6 +45,7 @@ const AnimeInfo = () => {
             height="300"
             image={animeData.images.jpg.large_image_url}
             alt={animeData.title}
+            sx={{ objectFit: "cover" }}
           />
           <CardContent>
             <Typography

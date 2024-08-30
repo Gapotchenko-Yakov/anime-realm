@@ -35,6 +35,7 @@ const AnimeInfo = () => {
 
   // Если данные загружены, отображаем информацию
   if (!animeData) return null;
+  console.log({ animeData });
 
   return (
     <Grid container spacing={3}>

@@ -37,7 +37,7 @@ describe("AnimePage", () => {
       </QueryClientProvider>
     );
 
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
+    expect(screen.getAllByText("Loading...").length).toBeGreaterThan(0);
 
     // expect(screen.getByRole("progressbar")).toBeInTheDocument();
   });
@@ -95,7 +95,17 @@ describe("AnimePage", () => {
 
   it("отображает Skeleton при загрузке случайного аниме", async () => {
     (useGetAnimeListQuery as Mock).mockReturnValue({
-      data: { data: [], pagination: { items: { total: 0, per_page: 10 } } },
+      data: {
+        data: [
+          {
+            images: { jpg: { large_image_url: "image_url" } },
+            title: "Anime Title",
+            genres: [{ name: "Action" }],
+            mal_id: 1,
+          },
+        ],
+        pagination: { items: { total: 100, per_page: 10 } },
+      },
       isLoading: false,
       error: null,
     });
@@ -109,7 +119,7 @@ describe("AnimePage", () => {
       </QueryClientProvider>
     );
 
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
+    expect(screen.getAllByText("Loading...").length).toBeGreaterThan(0);
 
     // expect(screen.getByRole("progressbar")).toBeInTheDocument();
   });

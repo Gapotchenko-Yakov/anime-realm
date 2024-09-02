@@ -15,6 +15,7 @@ const Layout = () => {
   } = useComponentsStore();
 
   const drawerWidth = open ? 250 : 0;
+  const appBarHeight = 64;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -22,6 +23,7 @@ const Layout = () => {
         position="fixed"
         sx={{
           width: `calc(100% - ${drawerWidth}px)`,
+          height: `${appBarHeight}px`,
           ml: `${drawerWidth}px`,
           bgcolor: theme.palette.background.alt,
         }}
@@ -36,10 +38,12 @@ const Layout = () => {
           p: 2,
           // ml: `${drawerWidth}px`,
           width: `calc(100% - ${drawerWidth}px)`,
-          mt: "64px",
+          height: `calc(100vh - ${appBarHeight}px)`,
+          mt: `${appBarHeight}px`,
           display: "flex",
           flexDirection: "row",
           justifyContent: "center",
+          // bgcolor: "red",
         }}
       >
         <Outlet /> {/* Рендеринг дочерних маршрутов */}

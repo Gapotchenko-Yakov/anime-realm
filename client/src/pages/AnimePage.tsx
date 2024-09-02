@@ -5,7 +5,6 @@ import {
   Container,
   Pagination,
   PaginationItem,
-  Skeleton,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -100,10 +99,29 @@ const AnimePage = () => {
 
   const pagesTotal = Math.ceil(itemsTotal / itemsPerPage);
 
-  if (isLoading) return <LoadingIndicator />;
-  if (error) return <ErrorIndicator message="Ошибка загрузки данных" />;
+  // if (isLoading)
+  //   return (
+  //     <LoadingIndicator
+  //       sx={{
+  //         width: "100%",
+  //         height: "100%",
+  //         bgcolor: palette.background.alt,
+  //       }}
+  //     />
+  //   );
+  // if (error)
+  //   return (
+  //     <ErrorIndicator
+  //       message="Ошибка загрузки данных"
+  //       sx={{
+  //         width: "100%",
+  //         height: "100%",
+  //         bgcolor: palette.background.alt,
+  //       }}
+  //     />
+  //   );
 
-  if (!animeList) return null;
+  // if (!animeList) return null;
 
   // error = { name: "", message: "" };
   // isLoading = true;
@@ -131,99 +149,120 @@ const AnimePage = () => {
             bgcolor: "inherit",
           }}
         >
-          <Box
-            sx={{
-              minHeight: 610,
-              m: 3,
-              textAlign: "center",
-              bgcolor: palette.background.alt,
-            }}
-          >
-            <Typography
-              variant="h2"
-              textAlign="left"
-              p={2}
-              color={palette.secondary[100]}
-            >
-              Anime List
-            </Typography>
-            <ImageList
-              variant="standard"
-              cols={matchDownSm ? 1 : matchDownMd ? 2 : matchDownLg ? 3 : 4}
-              rowHeight={430}
-              gap={8}
+          {error ? (
+            <ErrorIndicator
+              message="Ошибка загрузки данных"
               sx={{
-                p: 2,
-                "& .MuiImageListItem-img": { borderRadius: 2 },
-                "& .MuiImageListItemBar-root": {
-                  borderBottomLeftRadius: 10,
-                  borderBottomRightRadius: 10,
-                },
+                minHeight: 610,
+                m: 3,
+                textAlign: "center",
+                bgcolor: palette.background.alt,
+              }}
+            />
+          ) : isLoading || !animeList || animeList.length < 1 ? (
+            <LoadingIndicator
+              sx={{
+                minHeight: 610,
+                m: 3,
+                textAlign: "center",
+                bgcolor: palette.background.alt,
+              }}
+            />
+          ) : (
+            <Box
+              sx={{
+                minHeight: 610,
+                m: 3,
+                textAlign: "center",
+                bgcolor: palette.background.alt,
               }}
             >
-              {animeList.map((item: any) => (
-                <ImageListItem
-                  key={item.images.jpg.large_image_url}
-                  cols={1}
-                  sx={{
-                    minWidth: 180,
-                    maxWidth: 280,
-                    ":hover": {
-                      opacity: 0.4,
-                      cursor: "pointer",
-                    },
-                    ":hover .MuiSvgIcon-root": {
-                      visibility: "visible",
-                    },
-                  }}
-                  onClick={() => navigate(`/anime-info/${item.mal_id}`)}
-                >
-                  <PlayArrowIcon
-                    // fontSize="large"
+              <Typography
+                variant="h2"
+                textAlign="left"
+                p={2}
+                color={palette.secondary[100]}
+              >
+                Anime List
+              </Typography>
+              <ImageList
+                variant="standard"
+                cols={matchDownSm ? 1 : matchDownMd ? 2 : matchDownLg ? 3 : 4}
+                rowHeight={430}
+                gap={8}
+                sx={{
+                  p: 2,
+                  "& .MuiImageListItem-img": { borderRadius: 2 },
+                  "& .MuiImageListItemBar-root": {
+                    borderBottomLeftRadius: 10,
+                    borderBottomRightRadius: 10,
+                  },
+                }}
+              >
+                {animeList.map((item: any) => (
+                  <ImageListItem
+                    key={item.images.jpg.large_image_url}
+                    cols={1}
                     sx={{
-                      fontSize: "56px",
-                      position: "absolute",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                      left: 0,
-                      right: 0,
-                      marginTop: "auto",
-                      marginBottom: "auto",
-                      top: 0,
-                      bottom: 0,
-                      visibility: "hidden",
+                      minWidth: 180,
+                      maxWidth: 280,
+                      ":hover": {
+                        opacity: 0.4,
+                        cursor: "pointer",
+                      },
+                      ":hover .MuiSvgIcon-root": {
+                        visibility: "visible",
+                      },
                     }}
-                  />
-                  <img
-                    srcSet={`${item.images.jpg.large_image_url}`}
-                    src={`${item.images.jpg.large_image_url}`}
-                    alt={item.title}
-                    loading="lazy"
-                    style={{
-                      objectFit: "cover",
-                      maxHeight: "100%",
-                    }}
-                  />
-                  <ImageListItemBar
-                    title={item.title}
-                    subtitle={item.genres
-                      .map((genre: { name: string }) => genre.name)
-                      .join(", ")}
-                    actionIcon={
-                      <IconButton
-                        sx={{
-                          color: "rgba(255, 255, 255, 0.54)",
-                        }}
-                        aria-label={`info about ${item.title}`}
-                      >
-                        <InfoIcon />
-                      </IconButton>
-                    }
-                  />
-                </ImageListItem>
-              ))}
-            </ImageList>
-          </Box>
+                    onClick={() => navigate(`/anime-info/${item.mal_id}`)}
+                  >
+                    <PlayArrowIcon
+                      // fontSize="large"
+                      sx={{
+                        fontSize: "56px",
+                        position: "absolute",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        left: 0,
+                        right: 0,
+                        marginTop: "auto",
+                        marginBottom: "auto",
+                        top: 0,
+                        bottom: 0,
+                        visibility: "hidden",
+                      }}
+                    />
+                    <img
+                      srcSet={`${item.images.jpg.large_image_url}`}
+                      src={`${item.images.jpg.large_image_url}`}
+                      alt={item.title}
+                      loading="lazy"
+                      style={{
+                        objectFit: "cover",
+                        maxHeight: "100%",
+                      }}
+                    />
+                    <ImageListItemBar
+                      title={item.title}
+                      subtitle={item.genres
+                        .map((genre: { name: string }) => genre.name)
+                        .join(", ")}
+                      actionIcon={
+                        <IconButton
+                          sx={{
+                            color: "rgba(255, 255, 255, 0.54)",
+                          }}
+                          aria-label={`info about ${item.title}`}
+                        >
+                          <InfoIcon />
+                        </IconButton>
+                      }
+                    />
+                  </ImageListItem>
+                ))}
+              </ImageList>
+            </Box>
+          )}
           <Container
             sx={{
               bgcolor: "inherit",

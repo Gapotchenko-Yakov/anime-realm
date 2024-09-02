@@ -6,6 +6,7 @@ import ItemList from "./ItemList";
 import Layout from "./Layout";
 import Spinner from "./Spinner";
 import NavigationPanel from "./NavigationPanel";
+import LoadingIndicator from "./LoadingIndicator";
 
 export {
   ErrorIndicator,
@@ -16,4 +17,5 @@ export {
   Layout,
   Spinner,
   NavigationPanel,
+  LoadingIndicator,
 };

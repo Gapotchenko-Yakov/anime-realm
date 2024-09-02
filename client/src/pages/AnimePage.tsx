@@ -26,7 +26,7 @@ import {
 import { Info as InfoIcon } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { ErrorIndicator, Spinner } from "../components";
+import { ErrorIndicator, LoadingIndicator, Spinner } from "../components";
 import { useEffect, useState } from "react";
 
 const MIN_ANIME_FULL_ID = 1,
@@ -54,7 +54,7 @@ const AnimePage = () => {
   const page = parseInt(query.get("page") || "1");
   const navigate = useNavigate();
 
-  const {
+  let {
     data: {
       data: animeList,
       pagination: {
@@ -98,19 +98,24 @@ const AnimePage = () => {
     isLoading: randomAnimeIsLoading,
   } = useGetAnimeFullByIdQuery(randomAnimeId);
 
-  if (randomAnimeError) {
-  }
-
   const pagesTotal = Math.ceil(itemsTotal / itemsPerPage);
 
-  if (isLoading) return <Spinner />; // Показываем индикатор загрузки
+  if (isLoading) return <LoadingIndicator />;
   if (error) return <ErrorIndicator message="Ошибка загрузки данных" />;
 
-  // Если данные загружены, отображаем информацию
   if (!animeList) return null;
 
+  // error = { name: "", message: "" };
+  // isLoading = true;
+
   return (
-    <Box sx={{ bgcolor: palette.background.default }}>
+    <Box
+      sx={{
+        height: "100%",
+        width: "100%",
+        bgcolor: palette.background.default,
+      }}
+    >
       <Grid
         container
         sx={{
@@ -263,8 +268,7 @@ const AnimePage = () => {
               }}
             />
           ) : randomAnimeIsLoading || !randomAnime ? (
-            <Skeleton
-              variant="rounded"
+            <LoadingIndicator
               sx={{
                 height: "80vh",
                 minHeight: 400,

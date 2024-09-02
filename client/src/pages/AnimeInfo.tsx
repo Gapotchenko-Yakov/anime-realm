@@ -18,7 +18,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Link, useParams } from "react-router-dom";
 import { useGetAnimeFullByIdQuery } from "../lib/tanstack-query/useAnimeQueries";
-import { ErrorIndicator, Spinner } from "../components";
+import { ErrorIndicator, LoadingIndicator } from "../components";
 
 const AnimeInfo = () => {
   const { animeId = "1" } = useParams<{ animeId: string }>();
@@ -30,7 +30,7 @@ const AnimeInfo = () => {
     isLoading,
   } = useGetAnimeFullByIdQuery(parseInt(animeId));
 
-  if (isLoading) return <Spinner />; // Показываем индикатор загрузки
+  if (isLoading) return <LoadingIndicator />; // Показываем индикатор загрузки
   if (error) return <ErrorIndicator message="Ошибка загрузки данных" />;
 
   // Если данные загружены, отображаем информацию

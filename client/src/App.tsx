@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import { Layout } from "./components";
-import { Box, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { themeSettings } from "./mui/theme";
 import { AnimePage, AnimeList, Home } from "./pages";
 import AnimeInfo from "./pages/AnimeInfo";
@@ -37,7 +37,7 @@ const App = () => {
               <Route path="manga/" element={<Home />} />
               <Route path="anime-info/:animeId" element={<AnimeInfo />} />
             </Route>
-            {/* <Route path="*" element={<NotFoundPage />} /> */}
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

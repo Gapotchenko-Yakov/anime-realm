@@ -1,5 +1,5 @@
 import ErrorIndicator from "./ErrorIndicator";
-import Spinner from "./Spinner";
+import LoadingIndicator from "./LoadingIndicator";
 import {
   List,
   ListItem,
@@ -25,7 +25,7 @@ const ItemList = (props: ItemListProps) => {
   const theme = useTheme();
 
   if (isLoading) {
-    return <Spinner />;
+    return <LoadingIndicator />;
   }
 
   if (error) {

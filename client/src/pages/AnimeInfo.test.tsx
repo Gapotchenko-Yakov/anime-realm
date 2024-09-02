@@ -1,10 +1,12 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
-import { BrowserRouter as Router } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
 import { useGetAnimeFullByIdQuery } from "../lib/tanstack-query/useAnimeQueries";
 import userEvent from "@testing-library/user-event";
 
 import AnimeInfo from "./AnimeInfo";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { LoadingIndicator } from "../components";
 
 // Мокаем хуки и компоненты
 vi.mock("../lib/tanstack-query/useAnimeQueries", () => ({
@@ -12,7 +14,7 @@ vi.mock("../lib/tanstack-query/useAnimeQueries", () => ({
 }));
 
 vi.mock("../components", () => ({
-  Spinner: () => <div>Loading...</div>,
+  LoadingIndicator: () => <div>Loading...</div>,
   ErrorIndicator: ({ message }: { message: string }) => <div>{message}</div>,
 }));
 
@@ -338,7 +340,9 @@ describe("AnimeInfo", () => {
     ],
   };
 
-  it("spinner", () => {
+  const queryClient = new QueryClient();
+
+  it("LoadingIndicator", () => {
     (useGetAnimeFullByIdQuery as Mock).mockReturnValue({
       data: undefined,
       error: null,
@@ -346,9 +350,11 @@ describe("AnimeInfo", () => {
     });
 
     render(
-      <Router>
-        <AnimeInfo />
-      </Router>
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AnimeInfo />
+        </MemoryRouter>
+      </QueryClientProvider>
     );
 
     expect(screen.getByText("Loading...")).toBeInTheDocument();
@@ -362,9 +368,11 @@ describe("AnimeInfo", () => {
     });
 
     render(
-      <Router>
-        <AnimeInfo />
-      </Router>
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AnimeInfo />
+        </MemoryRouter>
+      </QueryClientProvider>
     );
 
     expect(screen.getByText("Ошибка загрузки данных")).toBeInTheDocument();
@@ -380,9 +388,11 @@ describe("AnimeInfo", () => {
     });
 
     render(
-      <Router>
-        <AnimeInfo />
-      </Router>
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AnimeInfo />
+        </MemoryRouter>
+      </QueryClientProvider>
     );
 
     expect(screen.getAllByText("Naruto").length).toBeGreaterThan(0);
@@ -414,9 +424,11 @@ describe("AnimeInfo", () => {
     });
 
     render(
-      <Router>
-        <AnimeInfo />
-      </Router>
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AnimeInfo />
+        </MemoryRouter>
+      </QueryClientProvider>
     );
 
     const accordionHeader = screen.getByText(/Producers/i);

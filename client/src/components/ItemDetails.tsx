@@ -1,4 +1,4 @@
-import Spinner from "./Spinner";
+import LoadingIndicator from "./LoadingIndicator";
 import ErrorIndicator from "./ErrorIndicator";
 import {
   Avatar,
@@ -30,7 +30,7 @@ const ItemDetails = (props: ItemDetailsProps) => {
   } = getData(itemId);
 
   if (isLoading) {
-    return <Spinner />;
+    return <LoadingIndicator />;
   }
 
   if (error) {

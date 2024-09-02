@@ -1,21 +1,6 @@
-const express = require("express");
-const http = require("http");
-const socketIo = require("socket.io");
-const express = require("express");
-const morgan = require("morgan");
-const cors = require("cors");
-const helmet = require("helmet");
-const session = require("express-session");
-const cookieParser = require("cookie-parser");
-const { Server } = require("socket.io");
-
 const app = express();
 
-// env var
-const PORT = 8080,
-  SECRET_KEY = "SECRET_1234";
-
-// middlewares
+// Main middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
@@ -23,22 +8,30 @@ app.use(cors());
 app.use(helmet());
 app.use(cookieParser());
 
-// Настройка сессий
+// Session setup
 app.use(
   session({
-    secret: SECRET_KEY,
+    secret: "your-secret-key",
     resave: false,
     saveUninitialized: true,
   })
 );
 
-// Раздача статических файлов
+// Serve static files
 app.use(express.static("public"));
 
-const server = http.createServer(app);
+// WebSocket with Socket.IO
+const httpServer = http.createServer(app);
+const io = new Server(httpServer);
 
-const io = socketIo(server);
+io.on("connection", (socket) => {
+  console.log("A user connected");
 
-server.listen(PORT, () => {
+  socket.on("disconnect", () => {
+    console.log("A user disconnected");
+  });
+});
+
+httpServer.listen(3000, () => {
   console.log("Server is running on port 3000");
 });

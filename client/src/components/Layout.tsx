@@ -18,7 +18,13 @@ const Layout = () => {
   const appBarHeight = 64;
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
       <AppBar
         position="fixed"
         sx={{
@@ -31,7 +37,7 @@ const Layout = () => {
         <HeaderToolbar />
       </AppBar>
       <NavigationPanel drawerWidth={drawerWidth} />
-      <Container
+      <Box
         component="main"
         sx={{
           flexGrow: 1,
@@ -44,10 +50,11 @@ const Layout = () => {
           flexDirection: "row",
           justifyContent: "center",
           // bgcolor: "red",
+          overflowY: "auto",
         }}
       >
         <Outlet /> {/* Рендеринг дочерних маршрутов */}
-      </Container>
+      </Box>
     </Box>
   );
 };

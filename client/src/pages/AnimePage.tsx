@@ -27,6 +27,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ErrorIndicator, LoadingIndicator, Spinner } from "../components";
 import { useEffect, useState } from "react";
+import { getRandomInt } from "../lib/utils";
 
 const MIN_ANIME_FULL_ID = 1,
   MAX_ANIME_FULL_ID = 6528,
@@ -69,16 +70,9 @@ const AnimePage = () => {
     isLoading,
   } = useGetAnimeListQuery({ page, limit: PAGE_LIMIT, sfw: true });
 
-  const [randomAnimeId, setRandomAnimeId] = useState(7);
-  console.log("🚀 ~ AnimePage ~ randomAnimeId:", randomAnimeId);
+  const [randomAnimeId, setRandomAnimeId] = useState(20);
 
   useEffect(() => {
-    const getRandomInt = (min: number, max: number) => {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    };
-
     const generateId = () => getRandomInt(MIN_ANIME_FULL_ID, MAX_ANIME_FULL_ID);
 
     setRandomAnimeId(generateId());

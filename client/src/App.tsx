@@ -9,6 +9,7 @@ import AnimeInfo from "./pages/AnimeInfo";
 import { useThemeStore } from "./lib/zustand/useThemeStore";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import NotFoundPage from "./pages/NotFoundPage";
+import Chat from "./components/Chat";
 
 const App = () => {
   const { mode: themeMode } = useThemeStore();
@@ -35,6 +36,7 @@ const App = () => {
               <Route path="characters/" element={<Home />} />
               <Route path="genres/" element={<Home />} />
               <Route path="manga/" element={<Home />} />
+              <Route path="chat/" element={<Chat />} />
               <Route path="anime-info/:animeId" element={<AnimeInfo />} />
             </Route>
             <Route path="*" element={<NotFoundPage />} />

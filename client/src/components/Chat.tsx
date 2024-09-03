@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 
-const ChatComponent = () => {
+const Chat = () => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [messages, setMessages] = useState<string[]>([]);
   const [input, setInput] = useState("");
@@ -68,4 +68,4 @@ const ChatComponent = () => {
   );
 };
 
-export default ChatComponent;
+export default Chat;

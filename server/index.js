@@ -33,11 +33,31 @@ app.use(express.static("public"));
 const httpServer = http.createServer(app);
 const io = new Server(httpServer);
 
-io.on("connection", (socket) => {
-  console.log("A user connected");
+const rooms = ["room1", "room2", "room3"];
+
+chatNamespace.on("connection", (socket) => {
+  console.log(`User connected to /chat: ${socket.id}`);
+
+  socket.emit("roomList", rooms);
+
+  socket.on("joinRoom", (room) => {
+    if (rooms.includes(room)) {
+      socket.join(room);
+      socket.emit("message", `You joined ${room}`);
+      socket.to(room).emit("message", `User ${socket.id} joined ${room}`);
+    } else {
+      socket.emit("message", "Room not found");
+    }
+  });
+
+  socket.on("message", (room, msg) => {
+    if (rooms.includes(room)) {
+      chatNamespace.to(room).emit("message", msg);
+    }
+  });
 
   socket.on("disconnect", () => {
-    console.log("A user disconnected");
+    console.log(`User disconnected from /chat: ${socket.id}`);
   });
 });
 

@@ -31,7 +31,7 @@ import { getRandomInt } from "../lib/utils";
 
 const MIN_ANIME_FULL_ID = 1,
   MAX_ANIME_FULL_ID = 6528,
-  RANDOM_ANIME_INTERVAL = 8000;
+  RANDOM_ANIME_INTERVAL = 40000;
 
 const AnimePage = () => {
   // theme
@@ -89,36 +89,9 @@ const AnimePage = () => {
     data: { data: randomAnime } = {},
     error: randomAnimeError,
     isLoading: randomAnimeIsLoading,
-  } = useGetAnimeFullByIdQuery(randomAnimeId);
+  } = useGetAnimeFullByIdQuery(20);
 
   const pagesTotal = Math.ceil(itemsTotal / itemsPerPage);
-
-  // if (isLoading)
-  //   return (
-  //     <LoadingIndicator
-  //       sx={{
-  //         width: "100%",
-  //         height: "100%",
-  //         bgcolor: palette.background.alt,
-  //       }}
-  //     />
-  //   );
-  // if (error)
-  //   return (
-  //     <ErrorIndicator
-  //       message="Ошибка загрузки данных"
-  //       sx={{
-  //         width: "100%",
-  //         height: "100%",
-  //         bgcolor: palette.background.alt,
-  //       }}
-  //     />
-  //   );
-
-  // if (!animeList) return null;
-
-  // error = { name: "", message: "" };
-  // isLoading = true;
 
   return (
     <Box

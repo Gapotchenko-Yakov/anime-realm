@@ -31,7 +31,7 @@ import { useEffect, useState } from "react";
 
 const MIN_ANIME_FULL_ID = 1,
   MAX_ANIME_FULL_ID = 6528,
-  RANDOM_ANIME_INTERVAL = 8000;
+  RANDOM_ANIME_INTERVAL = 40000;
 
 const HeaderToolbar = () => {
   const { mode, toggleMode } = useThemeStore();
@@ -134,7 +134,7 @@ const HeaderToolbar = () => {
             <FormatListBulletedIcon fontSize="large" />
           </IconButton>
           <IconButton
-            to={`/anime-info/${randomAnimeId}`}
+            to={`/anime-info/${20}`}
             component={RouterLink}
             sx={{ color: "inherit" }}
           >

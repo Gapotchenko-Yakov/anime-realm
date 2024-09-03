@@ -1,66 +1,79 @@
 import { Autocomplete, TextField } from "@mui/material";
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useGetAnimeListQuery } from "../../../lib/tanstack-query/useAnimeQueries";
 import { useNavigate } from "react-router-dom";
-import { useComponentsStore } from "../../../lib/zustand/useComponentsStore";
+import LoadingIndicator from "../../LoadingIndicator";
+import ErrorIndicator from "../../ErrorIndicator";
+import debounce from "lodash.debounce";
+
+interface Option {
+  id: number;
+  label: string;
+}
 
 const Search = () => {
   const navigate = useNavigate();
+  const [query, setQuery] = useState("");
+  const [inputValue, setInputValue] = useState("");
+
+  const debouncedSetQuery = useMemo(() => debounce(setQuery, 1500), []);
 
   const {
-    Search: { query },
-    setSearchQuery,
-  } = useComponentsStore();
-  const { data: { data: items } = {} } = useGetAnimeListQuery({
-    limit: 12,
+    data: { data: items } = {},
+    isLoading,
+    error,
+  } = useGetAnimeListQuery({
     q: query,
     order_by: "score",
     sort: "desc",
   });
 
-  const {
-    animeFound,
-  }: {
-    animeFound: { id: number; label: string }[] | undefined;
-    animeFoundTitles: string[] | undefined;
-  } = useMemo(() => {
-    let animeFound = items?.map((item) => ({
-      id: item.mal_id,
-      label: item.title,
-    }));
+  const animeFound: Option[] = useMemo(() => {
+    return (
+      items?.map((item) => ({
+        id: item.mal_id,
+        label: item.title,
+      })) || []
+    );
+  }, [items]);
 
-    let animeFoundTitles = animeFound?.map((anime) => anime?.label);
-
-    return { animeFound, animeFoundTitles };
-  }, [query]);
+  useEffect(() => {
+    return () => {
+      debouncedSetQuery.cancel();
+    };
+  }, [debouncedSetQuery]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const value = e.target.value;
-
-    if (value) setSearchQuery(value);
+    setInputValue(value);
+    debouncedSetQuery(value);
   };
 
   const handleAutocompleteChange = (
     e: React.SyntheticEvent<Element, Event>,
-    value: { id: number; label: string } | null
+    value: Option | null
   ) => {
     if (value) {
-      return navigate(`/anime-info/${value?.id}`);
+      navigate(`/anime-info/${value.id}`);
     }
   };
 
+  if (isLoading) return <LoadingIndicator />;
+  if (error) return <ErrorIndicator />;
+
   return (
     <Autocomplete
-      onChange={(e, value) => handleAutocompleteChange(e, value)}
-      options={animeFound || []}
+      onChange={handleAutocompleteChange}
+      disableClearable
+      options={animeFound}
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Anime"
-          onChange={(e) => handleInputChange(e)}
-          value={query}
+          label="Search input"
+          onChange={handleInputChange}
+          value={inputValue}
         />
       )}
       sx={{

@@ -11,11 +11,19 @@ import {
   CardContent,
   CardActions,
   useTheme,
+  Stack,
 } from "@mui/material";
+
+interface Message {
+  id: string;
+  author: string;
+  text: string;
+  date: Date;
+}
 
 const Chat = () => {
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const { palette } = useTheme();
 
@@ -23,7 +31,7 @@ const Chat = () => {
     const newSocket = io("http://localhost:5173");
     setSocket(newSocket);
 
-    newSocket.on("message", (message: string) => {
+    newSocket.on("message", (message: Message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     });
 
@@ -34,8 +42,14 @@ const Chat = () => {
 
   const handleSendMessage = () => {
     if (socket && input.trim()) {
+      const newMessage: Message = {
+        id: Date.now().toString(), // TODO: unique ID
+        author: "Yakov",
+        text: input,
+        date: new Date(),
+      };
       socket.emit("message", input);
-      setMessages((prevMessages) => [...prevMessages, `You: ${input}`]);
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
       setInput("");
     }
   };
@@ -62,13 +76,36 @@ const Chat = () => {
         </Typography>
         <List
           sx={{
-            maxHeight: 200,
+            height: "60vh",
             overflowY: "auto",
             color: palette.secondary.main,
           }}
         >
-          {messages.map((message, index) => (
-            <ListItem key={index}>{message}</ListItem>
+          {messages.map((message) => (
+            <ListItem
+              key={message.id}
+              sx={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+              }}
+            >
+              <Typography
+                variant="body2"
+                sx={{ color: palette.secondary[300], fontWeight: 600 }}
+              >
+                {message.author}:
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{ textWrap: "wrap", wordBreak: "break-word" }}
+              >
+                {message.text}
+              </Typography>
+              <Typography variant="caption" color="textSecondary">
+                {new Date(message.date).toLocaleTimeString()}
+              </Typography>
+            </ListItem>
           ))}
         </List>
       </CardContent>

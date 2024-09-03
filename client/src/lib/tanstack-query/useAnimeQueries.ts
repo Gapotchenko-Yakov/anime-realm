@@ -9,6 +9,7 @@ import {
   AnimeRecommendations,
   AnimeStatistics,
   GetAnimeListArg,
+  GetAnimeListOptions,
 } from "../../types/api/jikan";
 
 import apiClient from "../services/apiClient";
@@ -133,16 +134,21 @@ export const useGetAnimeStatisticsQuery = (id: number) => {
 /**
  * Хук для получения списка аниме по аргументам запроса.
  * @param {GetAnimeListArg} args - Параметры для запроса списка аниме.
+ * @param {GetAnimeListOptions} options - Опции для запроса списка аниме.
  * @returns {UseQueryResult} Результат запроса, содержащий данные о списке аниме.
  */
-export const useGetAnimeListQuery = (args: GetAnimeListArg) => {
+export const useGetAnimeListQuery = (
+  args: GetAnimeListArg,
+  options: GetAnimeListOptions = { enabled: true }
+) => {
   return useQuery<AnimeList>({
-    queryKey: ["anime", args], // Ключ запроса
+    queryKey: ["anime", args.q, args.limit, args.order_by, args.sort], // Ключ запроса с параметрами
     queryFn: async () => {
       const { data } = await apiClient.get<AnimeList>("anime", {
         params: args,
       });
       return data;
     },
+    enabled: !!options.enabled, // Запрашиваем только если есть query
   });
 };

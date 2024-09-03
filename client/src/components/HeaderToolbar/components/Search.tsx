@@ -1,10 +1,10 @@
 import { Autocomplete, TextField } from "@mui/material";
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo } from "react";
 import { useGetAnimeListQuery } from "../../../lib/tanstack-query/useAnimeQueries";
 import { useNavigate } from "react-router-dom";
+import { useComponentsStore } from "../../../lib/zustand/useComponentsStore";
 import LoadingIndicator from "../../LoadingIndicator";
 import ErrorIndicator from "../../ErrorIndicator";
-import debounce from "lodash.debounce";
 
 interface Option {
   id: number;
@@ -13,42 +13,39 @@ interface Option {
 
 const Search = () => {
   const navigate = useNavigate();
-  const [query, setQuery] = useState("");
-  const [inputValue, setInputValue] = useState("");
 
-  const debouncedSetQuery = useMemo(() => debounce(setQuery, 1500), []);
+  const { query, setSearchQuery } = useComponentsStore((state) => ({
+    query: state.Search.query,
+    setSearchQuery: state.setSearchQuery,
+  }));
 
   const {
     data: { data: items } = {},
     isLoading,
     error,
-  } = useGetAnimeListQuery({
-    q: query,
-    order_by: "score",
-    sort: "desc",
-  });
+  } = useGetAnimeListQuery(
+    {
+      q: query,
+      order_by: "score",
+      sort: "desc",
+    },
+    { enabled: !!query }
+  );
 
-  const animeFound: Option[] = useMemo(() => {
-    return (
+  const animeFound = useMemo(
+    () =>
       items?.map((item) => ({
         id: item.mal_id,
         label: item.title,
-      })) || []
-    );
-  }, [items]);
-
-  useEffect(() => {
-    return () => {
-      debouncedSetQuery.cancel();
-    };
-  }, [debouncedSetQuery]);
+      })) || [],
+    [items]
+  );
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const value = e.target.value;
-    setInputValue(value);
-    debouncedSetQuery(value);
+    setSearchQuery(value);
   };
 
   const handleAutocompleteChange = (
@@ -73,7 +70,7 @@ const Search = () => {
           {...params}
           label="Search input"
           onChange={handleInputChange}
-          value={inputValue}
+          value={query}
         />
       )}
       sx={{

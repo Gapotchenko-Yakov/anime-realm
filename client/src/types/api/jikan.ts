@@ -579,3 +579,7 @@ export type GetAnimeListArg = {
   order_by?: string;
   sort?: string;
 };
+
+export type GetAnimeListOptions = {
+  enabled?: boolean;
+};

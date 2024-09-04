@@ -33,7 +33,7 @@ const Chat = ({ userId }: ChatProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [room, setRoom] = useState<string>("general");
-  const [rooms, setRooms] = useState<string[]>(["general", "room1"]);
+  const [rooms, setRooms] = useState<string[]>(["general"]);
   const { palette } = useTheme();
 
   useEffect(() => {
@@ -80,7 +80,10 @@ const Chat = ({ userId }: ChatProps) => {
     setRoom(event.target.value);
   };
 
-  const filteredMessages = messages; //.filter((message) => message.room === room);
+  const filteredMessages = useMemo(
+    () => messages.filter((message) => message.room === room),
+    [messages, room]
+  );
 
   return (
     <Card

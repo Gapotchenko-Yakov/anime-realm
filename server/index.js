@@ -50,6 +50,12 @@ const io = new Server(httpServer, {
 const chatNamespace = io.of("/chat");
 
 const rooms = ["general", "room1", "room2", "room3"];
+const messagesByRoom = {
+  general: [],
+  room1: [],
+  room2: [],
+  room3: [],
+};
 
 io.on("connection", (socket) => {
   console.log(`User connected to /chat: ${socket.id}`);
@@ -62,18 +68,18 @@ io.on("connection", (socket) => {
   socket.on("joinRoom", (room) => {
     if (rooms.includes(room)) {
       socket.join(room);
-      socket.emit("message", `${socket.id} joined ${room}`);
+      socket.emit("initialMessages", messagesByRoom[room]);
+      socket.emit("message", `You joined ${room}`);
       socket.to(room).emit("message", `User ${socket.id} joined ${room}`);
     } else {
       socket.emit("message", "Room not found");
     }
   });
 
-  socket.on("message", (message) => {
-    console.log("🚀 ~ socket.on ~ message:", message);
-
-    if (rooms.includes(message.room)) {
-      io.to(message.room).emit("message", message);
+  socket.on("message", (room, message) => {
+    if (rooms.includes(room)) {
+      messagesByRoom[room].push(message);
+      io.to(room).emit("message", room, message);
     }
   });
 

@@ -21,16 +21,23 @@ interface Message {
   author: string;
   text: string;
   date: Date;
-  room: string;
 }
+
+type Room = "string";
 
 interface ChatProps {
   userId: string;
 }
 
+interface MessagesByRoom {
+  [key: string]: Message[];
+}
+
 const Chat = ({ userId }: ChatProps) => {
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messagesByRoom, setMessagesByRoom] = useState<MessagesByRoom>({
+    general: [],
+  });
   const [input, setInput] = useState("");
   const [room, setRoom] = useState<string>("general");
   const [rooms, setRooms] = useState<string[]>(["general"]);
@@ -40,11 +47,18 @@ const Chat = ({ userId }: ChatProps) => {
     const newSocket = io("http://localhost:8080");
     setSocket(newSocket);
 
-    newSocket.on("message", (message: Message) => {
-      console.log("🚀 ~ newSocket.on ~ message:", message);
-      if (message && message.id) {
-        setMessages((prevMessages) => [...prevMessages, message]);
-      }
+    newSocket.on("initialMessages", (messages: Message[]) => {
+      setMessagesByRoom((prevMessagesByRoom) => ({
+        ...prevMessagesByRoom,
+        [room]: messages,
+      }));
+    });
+
+    newSocket.on("message", (room: Room, message: Message) => {
+      setMessagesByRoom((prevMessagesByRoom) => ({
+        ...prevMessagesByRoom,
+        [room]: [...(prevMessagesByRoom[room] || []), message],
+      }));
     });
 
     newSocket.emit("getRooms");
@@ -69,9 +83,8 @@ const Chat = ({ userId }: ChatProps) => {
         author: userId,
         text: input,
         date: new Date(),
-        room,
       };
-      socket.emit("message", newMessage);
+      socket.emit("message", room, newMessage);
       setInput("");
     }
   };
@@ -80,10 +93,8 @@ const Chat = ({ userId }: ChatProps) => {
     setRoom(event.target.value);
   };
 
-  const filteredMessages = useMemo(
-    () => messages.filter((message) => message.room === room),
-    [messages, room]
-  );
+  const filteredMessages = messagesByRoom[room] || [];
+  console.log("🚀 ~ Chat ~ filteredMessages:", filteredMessages);
 
   return (
     <Card

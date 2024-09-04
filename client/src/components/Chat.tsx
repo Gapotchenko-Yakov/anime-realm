@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import io, { Socket } from "socket.io-client";
 import {
   Box,
@@ -21,6 +21,7 @@ interface Message {
   author: string;
   text: string;
   date: Date;
+  room: string;
 }
 
 interface ChatProps {
@@ -39,7 +40,7 @@ const Chat = ({ userId }: ChatProps) => {
     const newSocket = io("http://localhost:8080");
     setSocket(newSocket);
 
-    newSocket.on("message", (room: string, message: Message) => {
+    newSocket.on("message", (message: Message) => {
       console.log("🚀 ~ newSocket.on ~ message:", message);
       if (message && message.id) {
         setMessages((prevMessages) => [...prevMessages, message]);
@@ -68,9 +69,9 @@ const Chat = ({ userId }: ChatProps) => {
         author: userId,
         text: input,
         date: new Date(),
+        room,
       };
-      socket.emit("message", room, newMessage);
-      //   setMessages((prevMessages) => [...prevMessages, newMessage]);
+      socket.emit("message", newMessage);
       setInput("");
     }
   };
@@ -78,6 +79,8 @@ const Chat = ({ userId }: ChatProps) => {
   const handleRoomChange = (event: SelectChangeEvent<string>) => {
     setRoom(event.target.value);
   };
+
+  const filteredMessages = messages; //.filter((message) => message.room === room);
 
   return (
     <Card
@@ -118,7 +121,7 @@ const Chat = ({ userId }: ChatProps) => {
             color: palette.secondary.main,
           }}
         >
-          {messages.map((message = {} as Message) => (
+          {filteredMessages.map((message = {} as Message) => (
             <ListItem
               key={message.id}
               sx={{

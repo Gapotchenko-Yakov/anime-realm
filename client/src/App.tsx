@@ -42,6 +42,7 @@ const App = () => {
                   <Stack direction="row" spacing={3}>
                     <Chat userId="Yakov" />
                     <Chat userId="John" />
+                    <Chat userId="Jack" />
                   </Stack>
                 }
               />

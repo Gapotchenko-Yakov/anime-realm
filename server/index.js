@@ -62,18 +62,18 @@ io.on("connection", (socket) => {
   socket.on("joinRoom", (room) => {
     if (rooms.includes(room)) {
       socket.join(room);
-      socket.emit("message", `You joined ${room}`);
+      socket.emit("message", `${socket.id} joined ${room}`);
       socket.to(room).emit("message", `User ${socket.id} joined ${room}`);
     } else {
       socket.emit("message", "Room not found");
     }
   });
 
-  socket.on("message", (room, message) => {
+  socket.on("message", (message) => {
     console.log("🚀 ~ socket.on ~ message:", message);
 
-    if (rooms.includes(room)) {
-      socket.to(room).emit("message", room, message);
+    if (rooms.includes(message.room)) {
+      io.to(message.room).emit("message", message);
     }
   });
 

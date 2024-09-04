@@ -11,7 +11,9 @@ import {
   CardContent,
   CardActions,
   useTheme,
-  Stack,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
 } from "@mui/material";
 
 interface Message {
@@ -21,37 +23,60 @@ interface Message {
   date: Date;
 }
 
-const Chat = () => {
+interface ChatProps {
+  userId: string;
+}
+
+const Chat = ({ userId }: ChatProps) => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
+  const [room, setRoom] = useState<string>("general");
+  const [rooms, setRooms] = useState<string[]>(["general", "room1"]);
   const { palette } = useTheme();
 
   useEffect(() => {
-    const newSocket = io("http://localhost:5173");
+    const newSocket = io("http://localhost:8080");
     setSocket(newSocket);
 
-    newSocket.on("message", (message: Message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
+    newSocket.on("message", (room: string, message: Message) => {
+      console.log("🚀 ~ newSocket.on ~ message:", message);
+      if (message && message.id) {
+        setMessages((prevMessages) => [...prevMessages, message]);
+      }
     });
 
+    newSocket.emit("getRooms");
+
+    newSocket.on("roomsList", (rooms: string[]) => {
+      setRooms(rooms);
+    });
+
+    newSocket.emit("joinRoom", room);
+
     return () => {
+      //   newSocket.off("roomsList");
+
       newSocket.disconnect();
     };
-  }, []);
+  }, [room]);
 
   const handleSendMessage = () => {
     if (socket && input.trim()) {
       const newMessage: Message = {
-        id: Date.now().toString(), // TODO: unique ID
-        author: "Yakov",
+        id: Date.now().toString(),
+        author: userId,
         text: input,
         date: new Date(),
       };
-      socket.emit("message", input);
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      socket.emit("message", room, newMessage);
+      //   setMessages((prevMessages) => [...prevMessages, newMessage]);
       setInput("");
     }
+  };
+
+  const handleRoomChange = (event: SelectChangeEvent<string>) => {
+    setRoom(event.target.value);
   };
 
   return (
@@ -74,14 +99,26 @@ const Chat = () => {
         >
           Chat Room
         </Typography>
+        <Select
+          fullWidth
+          value={room}
+          onChange={handleRoomChange}
+          sx={{ mb: 2, color: palette.secondary[200] }}
+        >
+          {rooms.map((r) => (
+            <MenuItem key={r} value={r}>
+              {r}
+            </MenuItem>
+          ))}
+        </Select>
         <List
           sx={{
-            height: "60vh",
+            height: "40vh",
             overflowY: "auto",
             color: palette.secondary.main,
           }}
         >
-          {messages.map((message) => (
+          {messages.map((message = {} as Message) => (
             <ListItem
               key={message.id}
               sx={{
@@ -98,7 +135,12 @@ const Chat = () => {
               </Typography>
               <Typography
                 variant="body1"
-                sx={{ textWrap: "wrap", wordBreak: "break-word" }}
+                sx={{
+                  wordWrap: "break-word",
+                  overflowWrap: "break-word",
+                  textWrap: "wrap",
+                  overflowX: "hidden",
+                }}
               >
                 {message.text}
               </Typography>

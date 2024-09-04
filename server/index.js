@@ -7,20 +7,28 @@ const session = require("express-session");
 const http = require("http");
 const { Server } = require("socket.io");
 
+const PORT = 8080;
+
 const app = express();
 
 // Main middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
 app.use(helmet());
 app.use(cookieParser());
 
 // Session setup
 app.use(
   session({
-    secret: "your-secret-key",
+    secret: "secret-key",
     resave: false,
     saveUninitialized: true,
   })
@@ -31,14 +39,25 @@ app.use(express.static("public"));
 
 // WebSocket with Socket.IO
 const httpServer = http.createServer(app);
-const io = new Server(httpServer);
+const io = new Server(httpServer, {
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
 
-const rooms = ["room1", "room2", "room3"];
+const chatNamespace = io.of("/chat");
 
-chatNamespace.on("connection", (socket) => {
+const rooms = ["general", "room1", "room2", "room3"];
+
+io.on("connection", (socket) => {
   console.log(`User connected to /chat: ${socket.id}`);
 
-  socket.emit("roomList", rooms);
+  socket.on("getRooms", () => {
+    // const rooms = Array.from(io.sockets.adapter.rooms.keys());
+    socket.emit("roomsList", rooms);
+  });
 
   socket.on("joinRoom", (room) => {
     if (rooms.includes(room)) {
@@ -50,9 +69,11 @@ chatNamespace.on("connection", (socket) => {
     }
   });
 
-  socket.on("message", (room, msg) => {
+  socket.on("message", (room, message) => {
+    console.log("🚀 ~ socket.on ~ message:", message);
+
     if (rooms.includes(room)) {
-      chatNamespace.to(room).emit("message", msg);
+      socket.to(room).emit("message", room, message);
     }
   });
 
@@ -61,6 +82,6 @@ chatNamespace.on("connection", (socket) => {
   });
 });
 
-httpServer.listen(3000, () => {
-  console.log("Server is running on port 3000");
+httpServer.listen(PORT, () => {
+  console.log(`Server is running on port: ${PORT}`);
 });

@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import { Layout } from "./components";
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import { CssBaseline, Stack, ThemeProvider, createTheme } from "@mui/material";
 import { themeSettings } from "./mui/theme";
 import { AnimePage, AnimeList, Home } from "./pages";
 import AnimeInfo from "./pages/AnimeInfo";
@@ -36,7 +36,15 @@ const App = () => {
               <Route path="characters/" element={<Home />} />
               <Route path="genres/" element={<Home />} />
               <Route path="manga/" element={<Home />} />
-              <Route path="chat/" element={<Chat />} />
+              <Route
+                path="chat/"
+                element={
+                  <Stack direction="row" spacing={3}>
+                    <Chat userId="Yakov" />
+                    <Chat userId="John" />
+                  </Stack>
+                }
+              />
               <Route path="anime-info/:animeId" element={<AnimeInfo />} />
             </Route>
             <Route path="*" element={<NotFoundPage />} />

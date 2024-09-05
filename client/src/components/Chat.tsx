@@ -94,7 +94,6 @@ const Chat = ({ userId }: ChatProps) => {
   };
 
   const filteredMessages = messagesByRoom[room] || [];
-  console.log("🚀 ~ Chat ~ filteredMessages:", filteredMessages);
 
   return (
     <Card

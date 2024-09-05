@@ -21,6 +21,11 @@ import {
   Shuffle as ShuffleIcon,
   FormatListBulleted as FormatListBulletedIcon,
   Chat as ChatIcon,
+  Movie as MovieIcon,
+  Person as PersonIcon,
+  RateReview as RateReviewIcon,
+  Star as StarIcon,
+  Book as BookIcon,
 } from "@mui/icons-material";
 import { useTheme } from "@mui/material";
 import Search from "./components/Search";
@@ -103,58 +108,44 @@ const HeaderToolbar = () => {
 
         <Search />
 
-        <Stack
-          spacing={0}
-          direction="row"
-          sx={{ display: { xs: "none", md: "flex" } }}
-        >
-          <IconButton sx={{ color: "inherit" }} href="">
-            <FacebookIcon fontSize="large" />
+        <Stack spacing={0} direction="row">
+          <IconButton
+            to="/anime"
+            component={RouterLink}
+            sx={{ color: "inherit" }}
+          >
+            <MovieIcon fontSize="large" />
           </IconButton>
-          <IconButton sx={{ color: "inherit" }} href="">
-            <InstagramIcon fontSize="large" />
+          <IconButton
+            to="/characters"
+            component={RouterLink}
+            sx={{ color: "inherit" }}
+          >
+            <PersonIcon fontSize="large" />
           </IconButton>
-          <IconButton sx={{ color: "inherit" }} href="">
-            <TwitterIcon fontSize="large" />
+          <IconButton
+            to="/reviews"
+            component={RouterLink}
+            sx={{ color: "inherit" }}
+          >
+            <RateReviewIcon fontSize="large" />
           </IconButton>
-          <IconButton sx={{ color: "inherit" }} href="">
-            <RedditIcon fontSize="large" />
+          <IconButton
+            to="/top"
+            component={RouterLink}
+            sx={{ color: "inherit" }}
+          >
+            <StarIcon fontSize="large" />
           </IconButton>
-          <IconButton sx={{ color: "inherit" }} href="">
-            <LinkedInIcon fontSize="large" />
+          <IconButton
+            to="/manga"
+            component={RouterLink}
+            sx={{ color: "inherit" }}
+          >
+            <BookIcon fontSize="large" />
           </IconButton>
         </Stack>
 
-        <Stack spacing={0} direction="row">
-          <IconButton
-            to="/anime-page"
-            component={RouterLink}
-            sx={{ color: "inherit" }}
-          >
-            <FormatListBulletedIcon fontSize="large" />
-          </IconButton>
-          <IconButton
-            to={`/anime-info/${20}`}
-            component={RouterLink}
-            sx={{ color: "inherit" }}
-          >
-            <ShuffleIcon fontSize="large" />
-          </IconButton>
-          <IconButton
-            to="/popular"
-            component={RouterLink}
-            sx={{ color: "inherit" }}
-          >
-            <AutoAwesomeIcon fontSize="large" />
-          </IconButton>
-          <IconButton
-            to="/chat"
-            component={RouterLink}
-            sx={{ color: "inherit" }}
-          >
-            <ChatIcon fontSize="large" />
-          </IconButton>
-        </Stack>
         <Stack spacing={1} direction="row">
           <Button
             sx={{ color: "inherit" }}

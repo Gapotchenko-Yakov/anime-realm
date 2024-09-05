@@ -94,10 +94,22 @@ interface GetClubRelationsResponse {
   };
 }
 
+type GetClubsSearchQueryParameters = {
+  page?: number;
+  limit?: number;
+  q?: string;
+  type?: string;
+  category?: string; // TODO: must be enum
+  order_by?: string;
+  sort?: string;
+  letter?: string;
+};
+
 export type {
   GetClubMembersResponse,
   GetClubRelationsResponse,
   GetClubStaffResponse,
   GetClubsByIdResponse,
   GetClubsSearchResponse,
+  GetClubsSearchQueryParameters,
 };

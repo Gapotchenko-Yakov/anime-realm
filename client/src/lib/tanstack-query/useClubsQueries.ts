@@ -4,6 +4,7 @@ import {
   GetClubMembersResponse,
   GetClubStaffResponse,
   GetClubRelationsResponse,
+  GetClubsSearchQueryParameters,
 } from "../../types/api/clubs";
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "../services/apiClient";
@@ -65,16 +66,10 @@ export const useGetClubRelations = (id: number) => {
  * @param q - The search query.
  * @returns The list of clubs.
  */
-export const useGetClubsSearch = (
-  page?: number,
-  limit?: number,
-  q?: string
-) => {
+export const useGetClubsSearch = (args: GetClubsSearchQueryParameters) => {
   return useQuery<GetClubsSearchResponse>({
-    queryKey: ["clubs", { page, limit, q }],
+    queryKey: ["clubs", args],
     queryFn: () =>
-      apiClient
-        .get("/clubs", { params: { page, limit, q } })
-        .then((res) => res.data),
+      apiClient.get("/clubs", { params: args }).then((res) => res.data),
   });
 };

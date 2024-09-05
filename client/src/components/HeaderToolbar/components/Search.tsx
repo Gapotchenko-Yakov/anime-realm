@@ -49,7 +49,7 @@ const Search = () => {
   };
 
   const handleAutocompleteChange = (
-    e: React.SyntheticEvent<Element, Event>,
+    _e: React.SyntheticEvent<Element, Event>,
     value: Option | null
   ) => {
     if (value) {

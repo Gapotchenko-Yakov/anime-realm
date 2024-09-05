@@ -10,6 +10,7 @@ import { useThemeStore } from "./lib/zustand/useThemeStore";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import NotFoundPage from "./pages/NotFoundPage";
 import Chat from "./components/Chat";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const App = () => {
   const { mode: themeMode } = useThemeStore();
@@ -20,7 +21,6 @@ const App = () => {
     () => createTheme(themeSettings(themeMode)),
     [themeMode]
   );
-  // const theme = useMemo(() => createTheme(themeSettings), []);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -52,6 +52,7 @@ const App = () => {
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };

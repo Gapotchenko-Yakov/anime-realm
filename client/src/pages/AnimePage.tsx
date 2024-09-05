@@ -50,8 +50,10 @@ const AnimePage = () => {
 
   //pagination
   const location = useLocation();
+  console.log("🚀 ~ AnimePage ~ location:", location);
   const query = new URLSearchParams(location.search);
   const page = parseInt(query.get("page") || "1");
+  console.log("🚀 ~ AnimePage ~ page:", page);
   const navigate = useNavigate();
 
   let {
@@ -243,6 +245,7 @@ const AnimePage = () => {
             <Pagination
               page={page}
               count={pagesTotal}
+              // shape="rounded"
               sx={{
                 bgcolor: "inherit",
                 justifyContent: "center",

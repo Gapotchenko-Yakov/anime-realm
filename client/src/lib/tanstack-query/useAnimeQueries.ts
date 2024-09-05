@@ -142,7 +142,7 @@ export const useGetAnimeListQuery = (
   options: GetAnimeListOptions = { enabled: true }
 ) => {
   return useQuery<AnimeList>({
-    queryKey: ["anime", args.q, args.limit, args.order_by, args.sort], // Ключ запроса с параметрами
+    queryKey: ["anime", args], // Ключ запроса с параметрами
     queryFn: async () => {
       const { data } = await apiClient.get<AnimeList>("anime", {
         params: args,

@@ -1,8 +1,7 @@
-import { Alert, SxProps, Theme, Typography } from "@mui/material";
+import { Alert, AlertProps, SxProps, Theme, Typography } from "@mui/material";
 
-interface ErrorIndicatorProps {
+interface ErrorIndicatorProps extends AlertProps {
   message?: string;
-  sx?: SxProps<Theme>;
 }
 
 const ErrorIndicator = ({ message, sx }: ErrorIndicatorProps) => (

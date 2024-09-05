@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useGetClubsSearch } from "../lib/tanstack-query/useClubsQueries";
 import { Typography, Box, TextField, Button, useTheme } from "@mui/material";
 import { ClubSearchDataItem } from "../types/api/clubs";
-import { LoadingIndicator } from "../components";
+import { ErrorIndicator, LoadingIndicator } from "../components";
+import NoDataIndicator from "../components/NoDataIndicator";
 
 const ClubsPage: React.FC = () => {
   const [query, setQuery] = useState<string>("");
@@ -19,8 +20,11 @@ const ClubsPage: React.FC = () => {
     setPage(1); // Reset page to 1 on new search
   };
 
-  if (isLoading || !data) return <LoadingIndicator sx={{ width: "80%" }} />;
-  if (error) return <LoadingIndicator sx={{ width: "80%" }} />;
+  if (error) return <ErrorIndicator sx={{ width: "80%", height: "100%" }} />;
+  if (isLoading)
+    return <LoadingIndicator sx={{ width: "80%", height: "100%" }} />;
+  if (!data || !data.data || data.data.length === 0)
+    return <NoDataIndicator sx={{ width: "80%", height: "100%" }} />;
 
   const { data: clubs } = data;
 
@@ -28,6 +32,7 @@ const ClubsPage: React.FC = () => {
     <Box
       sx={{
         width: "80%",
+        height: "100%",
         bgcolor: palette.background.alt,
         p: 5,
         borderRadius: 3,

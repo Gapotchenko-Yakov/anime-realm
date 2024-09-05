@@ -50,10 +50,8 @@ const AnimePage = () => {
 
   //pagination
   const location = useLocation();
-  console.log("🚀 ~ AnimePage ~ location:", location);
   const query = new URLSearchParams(location.search);
   const page = parseInt(query.get("page") || "1");
-  console.log("🚀 ~ AnimePage ~ page:", page);
   const navigate = useNavigate();
 
   let {
@@ -70,7 +68,12 @@ const AnimePage = () => {
     } = {},
     error,
     isLoading,
-  } = useGetAnimeListQuery({ page, limit: PAGE_LIMIT, sfw: true });
+  } = useGetAnimeListQuery({
+    page,
+    limit: PAGE_LIMIT,
+    sfw: true,
+    order_by: "mal_id",
+  });
 
   const [randomAnimeId, setRandomAnimeId] = useState(20);
 

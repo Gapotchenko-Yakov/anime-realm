@@ -30,6 +30,8 @@ import {
   WbSunny as WbSunnyIcon,
 } from "@mui/icons-material";
 import { Link as RouterLink } from "react-router-dom";
+// import { useEffect, useState } from "react";
+// import { getRandomInt } from "../lib/utils";
 
 export const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -44,8 +46,27 @@ type NavigationPanelProps = {
   drawerWidth: number;
 };
 
+// const MIN_ANIME_FULL_ID = 1,
+//   MAX_ANIME_FULL_ID = 6528,
+//   RANDOM_ANIME_INTERVAL = 40000;
+
 const NavigationPanel = ({ drawerWidth }: NavigationPanelProps) => {
   const { NavigationPanel } = useComponentsStore();
+
+  // const [randomAnimeId, setRandomAnimeId] = useState(20);
+
+  // useEffect(() => {
+  //   const generateId = () => getRandomInt(MIN_ANIME_FULL_ID, MAX_ANIME_FULL_ID);
+
+  //   setRandomAnimeId(generateId());
+
+  //   const interval = setInterval(
+  //     () => setRandomAnimeId(generateId()),
+  //     RANDOM_ANIME_INTERVAL
+  //   );
+
+  //   return () => clearInterval(interval);
+  // }, []);
 
   const theme: Theme = useTheme();
 
@@ -58,7 +79,7 @@ const NavigationPanel = ({ drawerWidth }: NavigationPanelProps) => {
     {
       icon: <ShuffleIcon />,
       label: "Anime Info",
-      link: `/anime-info/${20}`,
+      link: `/anime-info/20`,
     },
     {
       icon: <AutoAwesomeIcon />,
@@ -165,7 +186,7 @@ const NavigationPanel = ({ drawerWidth }: NavigationPanelProps) => {
         {socialLinks.map(({ icon, label, link }) => (
           <IconButton
             key={label}
-            to="/manga"
+            to={link}
             component={RouterLink}
             sx={{ color: "inherit" }}
           >

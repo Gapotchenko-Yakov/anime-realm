@@ -22,12 +22,6 @@ import { useTheme } from "@mui/material";
 import Search from "./components/Search";
 import { useThemeStore } from "../../lib/zustand/useThemeStore";
 import { useComponentsStore } from "../../lib/zustand/useComponentsStore";
-import { getRandomInt } from "../../lib/utils";
-import { useEffect, useState } from "react";
-
-const MIN_ANIME_FULL_ID = 1,
-  MAX_ANIME_FULL_ID = 6528,
-  RANDOM_ANIME_INTERVAL = 40000;
 
 const HeaderToolbar = () => {
   const { mode, toggleMode } = useThemeStore();
@@ -36,21 +30,6 @@ const HeaderToolbar = () => {
     NavigationPanel: { isOpen: navIsOpen },
     toggleNavigationPanelOpen,
   } = useComponentsStore();
-
-  const [randomAnimeId, setRandomAnimeId] = useState(20);
-
-  useEffect(() => {
-    const generateId = () => getRandomInt(MIN_ANIME_FULL_ID, MAX_ANIME_FULL_ID);
-
-    setRandomAnimeId(generateId());
-
-    const interval = setInterval(
-      () => setRandomAnimeId(generateId()),
-      RANDOM_ANIME_INTERVAL
-    );
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <Toolbar

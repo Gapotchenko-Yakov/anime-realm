@@ -22,12 +22,7 @@ type ItemDetailsProps = {
 const ItemDetails = (props: ItemDetailsProps) => {
   const { itemId, renderItemDetails = () => {}, getData } = props;
 
-  const {
-    data: { data: item = {} } = {},
-    error,
-    isLoading,
-    data,
-  } = getData(itemId);
+  const { data: { data: item = {} } = {}, error, isLoading } = getData(itemId);
 
   if (isLoading) {
     return <LoadingIndicator />;

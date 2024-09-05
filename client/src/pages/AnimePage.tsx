@@ -25,13 +25,7 @@ import {
 import { Info as InfoIcon } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { ErrorIndicator, LoadingIndicator, Spinner } from "../components";
-import { useEffect, useState } from "react";
-import { getRandomInt } from "../lib/utils";
-
-const MIN_ANIME_FULL_ID = 1,
-  MAX_ANIME_FULL_ID = 6528,
-  RANDOM_ANIME_INTERVAL = 40000;
+import { ErrorIndicator, LoadingIndicator } from "../components";
 
 const AnimePage = () => {
   // theme
@@ -45,9 +39,6 @@ const AnimePage = () => {
   // pageLimit
   const PAGE_LIMIT = 12;
 
-  // search
-  // const search = this.props
-
   //pagination
   const location = useLocation();
   const query = new URLSearchParams(location.search);
@@ -58,10 +49,10 @@ const AnimePage = () => {
     data: {
       data: animeList,
       pagination: {
-        last_visible_page: lastVisiblePage = 1,
+        // last_visible_page: lastVisiblePage = 1,
         items: {
           total: itemsTotal = 26596,
-          count: itemsCount = 25,
+          // count: itemsCount = 25,
           per_page: itemsPerPage = 25,
         } = {},
       } = {},
@@ -74,21 +65,6 @@ const AnimePage = () => {
     sfw: true,
     order_by: "mal_id",
   });
-
-  const [randomAnimeId, setRandomAnimeId] = useState(20);
-
-  useEffect(() => {
-    const generateId = () => getRandomInt(MIN_ANIME_FULL_ID, MAX_ANIME_FULL_ID);
-
-    setRandomAnimeId(generateId());
-
-    const interval = setInterval(
-      () => setRandomAnimeId(generateId()),
-      RANDOM_ANIME_INTERVAL
-    );
-
-    return () => clearInterval(interval);
-  }, []);
 
   const {
     data: { data: randomAnime } = {},

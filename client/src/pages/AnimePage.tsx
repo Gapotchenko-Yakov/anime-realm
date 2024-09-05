@@ -245,7 +245,7 @@ const AnimePage = () => {
             <Pagination
               page={page}
               count={pagesTotal}
-              // shape="rounded"
+              shape="rounded"
               sx={{
                 bgcolor: "inherit",
                 justifyContent: "center",

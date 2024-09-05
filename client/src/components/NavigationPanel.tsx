@@ -8,8 +8,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import { useComponentsStore } from "../lib/zustand/useComponentsStore";
 import {
   Reddit as RedditIcon,
@@ -166,6 +164,7 @@ const NavigationPanel = ({ drawerWidth }: NavigationPanelProps) => {
       >
         {socialLinks.map(({ icon, label, link }) => (
           <IconButton
+            key={label}
             to="/manga"
             component={RouterLink}
             sx={{ color: "inherit" }}

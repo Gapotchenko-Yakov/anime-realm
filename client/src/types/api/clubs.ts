@@ -112,4 +112,5 @@ export type {
   GetClubsByIdResponse,
   GetClubsSearchResponse,
   GetClubsSearchQueryParameters,
+  ClubSearchDataItem,
 };

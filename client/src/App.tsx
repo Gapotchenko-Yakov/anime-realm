@@ -11,6 +11,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import NotFoundPage from "./pages/NotFoundPage";
 import Chat from "./components/Chat";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ClubsPage from "./pages/ClubsPage";
 
 const App = () => {
   const { mode: themeMode } = useThemeStore();
@@ -36,6 +37,7 @@ const App = () => {
               <Route path="characters/" element={<Home />} />
               <Route path="genres/" element={<Home />} />
               <Route path="manga/" element={<Home />} />
+              <Route path="clubs/" element={<ClubsPage />} />
               <Route
                 path="chat/"
                 element={

@@ -2,7 +2,7 @@ import { useTheme } from "@mui/material/styles";
 
 import HeaderToolbar from "./HeaderToolbar/HeaderToolbar";
 import { Outlet } from "react-router-dom";
-import { AppBar, Box, Toolbar, Container } from "@mui/material";
+import { AppBar, Box } from "@mui/material";
 import { useComponentsStore } from "../lib/zustand/useComponentsStore";
 import NavigationPanel from "./NavigationPanel";
 

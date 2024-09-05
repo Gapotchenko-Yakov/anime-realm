@@ -1,4 +1,4 @@
-import { Alert, AlertProps, SxProps, Theme, Typography } from "@mui/material";
+import { Alert, AlertProps, Typography } from "@mui/material";
 
 interface NoDataIndicatorProps extends AlertProps {
   message?: string;

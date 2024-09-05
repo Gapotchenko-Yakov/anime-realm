@@ -5,7 +5,6 @@ import {
   Button,
   Stack,
   IconButton,
-  Box,
 } from "@mui/material";
 
 import { Link as RouterLink } from "react-router-dom";

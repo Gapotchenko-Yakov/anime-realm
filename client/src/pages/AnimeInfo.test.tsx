@@ -6,7 +6,6 @@ import userEvent from "@testing-library/user-event";
 
 import AnimeInfo from "./AnimeInfo";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { LoadingIndicator } from "../components";
 
 // Мокаем хуки и компоненты
 vi.mock("../lib/tanstack-query/useAnimeQueries", () => ({

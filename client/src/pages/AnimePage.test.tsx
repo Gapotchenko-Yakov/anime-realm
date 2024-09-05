@@ -1,4 +1,4 @@
-import { getByText, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { describe, it, Mock, vi, expect, beforeAll } from "vitest";
 import AnimePage from "./AnimePage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

@@ -12,15 +12,6 @@ import { DarkMode, LightMode } from "@mui/icons-material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import {
-  Reddit as RedditIcon,
-  Facebook as FacebookIcon,
-  Instagram as InstagramIcon,
-  Twitter as TwitterIcon,
-  LinkedIn as LinkedInIcon,
-  AutoAwesome as AutoAwesomeIcon,
-  Shuffle as ShuffleIcon,
-  FormatListBulleted as FormatListBulletedIcon,
-  Chat as ChatIcon,
   Movie as MovieIcon,
   Person as PersonIcon,
   RateReview as RateReviewIcon,

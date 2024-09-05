@@ -18,9 +18,18 @@ import {
   Twitter as TwitterIcon,
   LinkedIn as LinkedInIcon,
   AutoAwesome as AutoAwesomeIcon,
-  Shuffle as ShuffleIcon,
   FormatListBulleted as FormatListBulletedIcon,
   Chat as ChatIcon,
+  Group as GroupIcon,
+  Category as CategoryIcon,
+  LibraryBooks as LibraryBooksIcon,
+  People as PeopleIcon,
+  Business as BusinessIcon,
+  Shuffle as ShuffleIcon,
+  ThumbUp as ThumbUpIcon,
+  CalendarToday as CalendarTodayIcon,
+  AccountCircle as AccountCircleIcon,
+  WbSunny as WbSunnyIcon,
 } from "@mui/icons-material";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -61,6 +70,23 @@ const NavigationPanel = ({ drawerWidth }: NavigationPanelProps) => {
     { icon: <ChatIcon />, label: "Chat", link: "/chat" },
   ];
 
+  const drawerLinks = [
+    { icon: <GroupIcon />, label: "Clubs", link: "/clubs" },
+    { icon: <CategoryIcon />, label: "Genres", link: "/genres" },
+    { icon: <LibraryBooksIcon />, label: "Magazines", link: "/magazines" },
+    { icon: <PeopleIcon />, label: "People", link: "/people" },
+    { icon: <BusinessIcon />, label: "Producers", link: "/producers" },
+    { icon: <ShuffleIcon />, label: "Random", link: "/random" },
+    {
+      icon: <ThumbUpIcon />,
+      label: "Recommendations",
+      link: "/recommendations",
+    },
+    { icon: <CalendarTodayIcon />, label: "Schedules", link: "/schedules" },
+    { icon: <AccountCircleIcon />, label: "Users", link: "/users" },
+    { icon: <WbSunnyIcon />, label: "Seasons", link: "/seasons" },
+  ];
+
   const socialLinks = [
     { icon: <FacebookIcon />, label: "Facebook", link: "#" },
     { icon: <InstagramIcon />, label: "Instagram", link: "#" },
@@ -95,6 +121,23 @@ const NavigationPanel = ({ drawerWidth }: NavigationPanelProps) => {
       <Divider />
       <List sx={{ color: theme.palette.secondary[200] }}>
         {navLinks.map(({ icon, label, link }) => (
+          <ListItem
+            key={label}
+            disablePadding
+            to={link}
+            component={RouterLink}
+            sx={{ color: "inherit" }}
+          >
+            <ListItemButton>
+              <ListItemIcon>{icon}</ListItemIcon>
+              <ListItemText primary={label} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List sx={{ color: theme.palette.secondary[200] }}>
+        {drawerLinks.map(({ icon, label, link }) => (
           <ListItem
             key={label}
             disablePadding

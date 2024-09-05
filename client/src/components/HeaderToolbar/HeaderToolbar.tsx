@@ -5,6 +5,7 @@ import {
   Button,
   Stack,
   IconButton,
+  Box,
 } from "@mui/material";
 
 import { Link as RouterLink } from "react-router-dom";
@@ -87,21 +88,31 @@ const HeaderToolbar = () => {
               <ChevronRightIcon fontSize="large" />
             )}
           </IconButton>
-          <Avatar
-            src="./favicon-bleach.png"
-            alt="Anime Logo"
-            sx={{ width: 40, height: 40 }}
-          />
-          <Typography variant="h6" component="div" fontSize="large">
-            AnimeDB
-          </Typography>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={2}
+            component={RouterLink}
+            to="/"
+            sx={{ color: "inherit" }}
+          >
+            <Avatar
+              src="./favicon-bleach.png"
+              alt="Anime Logo"
+              sx={{ width: 40, height: 40 }}
+            />
+            <Typography variant="h6" component="div" fontSize="large">
+              AnimeRealm
+            </Typography>
+          </Stack>
         </Stack>
 
         <Search />
 
         <Stack spacing={0} direction="row">
           <IconButton
-            to="/anime"
+            to="/anime-page"
             component={RouterLink}
             sx={{ color: "inherit" }}
           >

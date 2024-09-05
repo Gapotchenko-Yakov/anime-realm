@@ -88,11 +88,11 @@ const NavigationPanel = ({ drawerWidth }: NavigationPanelProps) => {
   ];
 
   const socialLinks = [
-    { icon: <FacebookIcon />, label: "Facebook", link: "#" },
-    { icon: <InstagramIcon />, label: "Instagram", link: "#" },
-    { icon: <TwitterIcon />, label: "Twitter", link: "#" },
-    { icon: <LinkedInIcon />, label: "LinkedIn", link: "#" },
-    { icon: <RedditIcon />, label: "Reddit", link: "#" },
+    { icon: <FacebookIcon fontSize="large" />, label: "Facebook", link: "#" },
+    { icon: <InstagramIcon fontSize="large" />, label: "Instagram", link: "#" },
+    { icon: <TwitterIcon fontSize="large" />, label: "Twitter", link: "#" },
+    { icon: <LinkedInIcon fontSize="large" />, label: "LinkedIn", link: "#" },
+    { icon: <RedditIcon fontSize="large" />, label: "Reddit", link: "#" },
   ];
 
   return (
@@ -152,23 +152,28 @@ const NavigationPanel = ({ drawerWidth }: NavigationPanelProps) => {
           </ListItem>
         ))}
       </List>
-      <Divider />
-      <List sx={{ color: theme.palette.secondary[200] }}>
+      <Divider />{" "}
+      <Stack
+        direction="row"
+        sx={{
+          color: theme.palette.secondary[200],
+          mt: 2,
+          justifyContent: "space-between",
+          position: "fixed",
+          left: "7px",
+          bottom: "7px",
+        }}
+      >
         {socialLinks.map(({ icon, label, link }) => (
-          <ListItem
-            key={label}
-            disablePadding
-            to={link}
+          <IconButton
+            to="/manga"
             component={RouterLink}
             sx={{ color: "inherit" }}
           >
-            <ListItemButton>
-              <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText primary={label} />
-            </ListItemButton>
-          </ListItem>
+            {icon}
+          </IconButton>
         ))}
-      </List>
+      </Stack>
     </Drawer>
   );
 };

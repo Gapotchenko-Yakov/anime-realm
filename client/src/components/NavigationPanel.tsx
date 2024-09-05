@@ -1,6 +1,6 @@
 import { Drawer, IconButton, List, Stack } from "@mui/material";
 
-import { styled, useTheme } from "@mui/material/styles";
+import { styled, Theme, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 
@@ -40,7 +40,26 @@ type NavigationPanelProps = {
 const NavigationPanel = ({ drawerWidth }: NavigationPanelProps) => {
   const { NavigationPanel } = useComponentsStore();
 
-  const theme: any = useTheme();
+  const theme: Theme = useTheme();
+
+  const navLinks = [
+    {
+      icon: <FormatListBulletedIcon />,
+      label: "Anime Page",
+      link: "/anime-page",
+    },
+    {
+      icon: <ShuffleIcon />,
+      label: "Anime Info",
+      link: `/anime-info/${20}`,
+    },
+    {
+      icon: <AutoAwesomeIcon />,
+      label: "Popular",
+      link: "/popular",
+    },
+    { icon: <ChatIcon />, label: "Chat", link: "/chat" },
+  ];
 
   const socialLinks = [
     { icon: <FacebookIcon />, label: "Facebook", link: "#" },
@@ -53,6 +72,7 @@ const NavigationPanel = ({ drawerWidth }: NavigationPanelProps) => {
   return (
     <Drawer
       sx={{
+        color: theme.palette.secondary[200],
         width: drawerWidth,
         flexShrink: 0,
         "& .MuiDrawer-paper": {
@@ -65,31 +85,20 @@ const NavigationPanel = ({ drawerWidth }: NavigationPanelProps) => {
       anchor="left"
       open={NavigationPanel.isOpen}
     >
-      <DrawerHeader sx={{ color: "inherit", ml: "1.5rem", mr: "auto" }}>
+      <DrawerHeader
+        sx={{ color: theme.palette.secondary[100], ml: "1.5rem", mr: "auto" }}
+      >
         <Typography variant="h6" textAlign="left">
           Navigation Panel
         </Typography>
       </DrawerHeader>
       <Divider />
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {socialLinks.map(({ icon, label }) => (
+      <List sx={{ color: theme.palette.secondary[200] }}>
+        {navLinks.map(({ icon, label, link }) => (
           <ListItem
             key={label}
             disablePadding
-            to="#"
+            to={link}
             component={RouterLink}
             sx={{ color: "inherit" }}
           >
@@ -100,33 +109,23 @@ const NavigationPanel = ({ drawerWidth }: NavigationPanelProps) => {
           </ListItem>
         ))}
       </List>
-
-      <Stack spacing={0} direction="row">
-        <IconButton
-          to="/anime-page"
-          component={RouterLink}
-          sx={{ color: "inherit" }}
-        >
-          <FormatListBulletedIcon fontSize="large" />
-        </IconButton>
-        <IconButton
-          to={`/anime-info/${20}`}
-          component={RouterLink}
-          sx={{ color: "inherit" }}
-        >
-          <ShuffleIcon fontSize="large" />
-        </IconButton>
-        <IconButton
-          to="/popular"
-          component={RouterLink}
-          sx={{ color: "inherit" }}
-        >
-          <AutoAwesomeIcon fontSize="large" />
-        </IconButton>
-        <IconButton to="/chat" component={RouterLink} sx={{ color: "inherit" }}>
-          <ChatIcon fontSize="large" />
-        </IconButton>
-      </Stack>
+      <Divider />
+      <List sx={{ color: theme.palette.secondary[200] }}>
+        {socialLinks.map(({ icon, label, link }) => (
+          <ListItem
+            key={label}
+            disablePadding
+            to={link}
+            component={RouterLink}
+            sx={{ color: "inherit" }}
+          >
+            <ListItemButton>
+              <ListItemIcon>{icon}</ListItemIcon>
+              <ListItemText primary={label} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
     </Drawer>
   );
 };

@@ -42,6 +42,14 @@ const NavigationPanel = ({ drawerWidth }: NavigationPanelProps) => {
 
   const theme: any = useTheme();
 
+  const socialLinks = [
+    { icon: <FacebookIcon />, label: "Facebook", link: "#" },
+    { icon: <InstagramIcon />, label: "Instagram", link: "#" },
+    { icon: <TwitterIcon />, label: "Twitter", link: "#" },
+    { icon: <LinkedInIcon />, label: "LinkedIn", link: "#" },
+    { icon: <RedditIcon />, label: "Reddit", link: "#" },
+  ];
+
   return (
     <Drawer
       sx={{
@@ -77,39 +85,21 @@ const NavigationPanel = ({ drawerWidth }: NavigationPanelProps) => {
       </List>
       <Divider />
       <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
+        {socialLinks.map(({ icon, label }) => (
+          <ListItem
+            key={label}
+            disablePadding
+            to="#"
+            component={RouterLink}
+            sx={{ color: "inherit" }}
+          >
             <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemIcon>{icon}</ListItemIcon>
+              <ListItemText primary={label} />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
-
-      <Stack
-        spacing={0}
-        direction="row"
-        sx={{ display: { xs: "none", md: "flex" } }}
-      >
-        <IconButton sx={{ color: "inherit" }} to="#" component={RouterLink}>
-          <FacebookIcon fontSize="large" />
-        </IconButton>
-        <IconButton sx={{ color: "inherit" }} to="#" component={RouterLink}>
-          <InstagramIcon fontSize="large" />
-        </IconButton>
-        <IconButton sx={{ color: "inherit" }} to="#" component={RouterLink}>
-          <TwitterIcon fontSize="large" />
-        </IconButton>
-        <IconButton sx={{ color: "inherit" }} to="#" component={RouterLink}>
-          <RedditIcon fontSize="large" />
-        </IconButton>
-        <IconButton sx={{ color: "inherit" }} to="#" component={RouterLink}>
-          <LinkedInIcon fontSize="large" />
-        </IconButton>
-      </Stack>
 
       <Stack spacing={0} direction="row">
         <IconButton

@@ -53,28 +53,13 @@ type NavigationPanelProps = {
 const NavigationPanel = ({ drawerWidth }: NavigationPanelProps) => {
   const { NavigationPanel } = useComponentsStore();
 
-  // const [randomAnimeId, setRandomAnimeId] = useState(20);
-
-  // useEffect(() => {
-  //   const generateId = () => getRandomInt(MIN_ANIME_FULL_ID, MAX_ANIME_FULL_ID);
-
-  //   setRandomAnimeId(generateId());
-
-  //   const interval = setInterval(
-  //     () => setRandomAnimeId(generateId()),
-  //     RANDOM_ANIME_INTERVAL
-  //   );
-
-  //   return () => clearInterval(interval);
-  // }, []);
-
   const theme: Theme = useTheme();
 
   const navLinks = [
     {
       icon: <FormatListBulletedIcon />,
       label: "Anime Page",
-      link: "/anime-page",
+      link: "/anime",
     },
     {
       icon: <ShuffleIcon />,

@@ -90,7 +90,7 @@ const HeaderToolbar = () => {
 
         <Stack spacing={0} direction="row">
           <IconButton
-            to="/anime-page"
+            to="/anime"
             component={RouterLink}
             sx={{ color: "inherit" }}
           >

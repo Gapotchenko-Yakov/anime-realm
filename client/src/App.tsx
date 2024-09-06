@@ -12,6 +12,8 @@ import NotFoundPage from "./pages/NotFoundPage";
 import Chat from "./components/Chat";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ClubsPage from "./pages/ClubsPage";
+import MangaPage from "./components/MangaInfo";
+import MangaInfo from "./components/MangaInfo";
 
 const App = () => {
   const { mode: themeMode } = useThemeStore();
@@ -32,12 +34,13 @@ const App = () => {
             <Route path="/" element={<Layout />}>
               <Route path="/" element={<Navigate to="/home" replace />} />
               <Route path="home/" element={<Home />} />
-              <Route path="anime-page/" element={<AnimePage />} />
+              <Route path="anime/" element={<AnimePage />} />
+              <Route path="manga/" element={<MangaInfo />} />
+              <Route path="clubs/" element={<ClubsPage />} />
+
               <Route path="anime-list/" element={<AnimeList />} />
               <Route path="characters/" element={<Home />} />
               <Route path="genres/" element={<Home />} />
-              <Route path="manga/" element={<Home />} />
-              <Route path="clubs/" element={<ClubsPage />} />
               <Route
                 path="chat/"
                 element={
@@ -49,8 +52,8 @@ const App = () => {
                 }
               />
               <Route path="anime-info/:animeId" element={<AnimeInfo />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
-            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

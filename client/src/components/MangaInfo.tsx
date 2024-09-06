@@ -7,7 +7,7 @@ import {
   useMangaTopics,
 } from "../lib/tanstack-query/useMangaQueries"; // Adjust the path to your hooks file
 
-const MangaPage: React.FC = () => {
+const MangaInfo: React.FC = () => {
   const { id = "1" } = useParams<{ id: string }>();
   const mangaId = parseInt(id, 10);
 
@@ -85,4 +85,4 @@ const MangaPage: React.FC = () => {
   );
 };
 
-export default MangaPage;
+export default MangaInfo;

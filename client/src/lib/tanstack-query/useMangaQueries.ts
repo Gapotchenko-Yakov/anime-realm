@@ -28,9 +28,12 @@ import {
   GetMangaSearchQueryParameters,
 } from "../../types/api/manga";
 import apiClient from "../services/apiClient";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 
-export const useMangaFullById = (id: number, options?: any) => {
+export const useMangaFullById = (
+  id: number,
+  options?: any
+): UseQueryResult<GetMangaFullByIdResponse, Error> => {
   return useQuery({
     queryKey: ["manga", id, "full"],
     queryFn: async () => {

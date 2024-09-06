@@ -14,7 +14,7 @@ import {
   useGetAnimeFullByIdQuery,
   useGetAnimeListQuery,
 } from "../lib/tanstack-query/useAnimeQueries";
-import { AnimeFull } from "../types/api/jikan";
+import { AnimeFull } from "../types/api/anime";
 
 const AnimeList = () => {
   const [itemId, setItemId] = useState<number>(17);

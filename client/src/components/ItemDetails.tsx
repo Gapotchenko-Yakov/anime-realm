@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { AnimeFull } from "../types/api/jikan";
+import { AnimeFull } from "../types/api/anime";
 
 type ItemDetailsProps = {
   itemId: number;

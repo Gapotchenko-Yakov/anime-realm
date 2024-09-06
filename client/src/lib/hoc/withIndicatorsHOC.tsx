@@ -4,7 +4,7 @@ import NoDataIndicator from "../../components/indicators/NoDataIndicator";
 
 interface WithIndicatorsProps {
   isLoading: boolean;
-  error?: Error;
+  error: Error | null;
   noData?: boolean;
   noDataMessage?: string;
   errorMessage?: string;

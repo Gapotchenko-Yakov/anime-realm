@@ -130,45 +130,49 @@ export interface MangaCharacter {
   name: string;
 }
 
+export interface MangaNews {
+  mal_id: number;
+  url: string;
+  title: string;
+  date: string;
+  author_username: string;
+  author_url: string;
+  forum_url: string;
+  images: {
+    jpg: {
+      image_url: string;
+    };
+  };
+  comments: number;
+  excerpt: string; // TODO : check typo
+}
+
 export interface GetMangaNewsResponse {
   pagination: {
     last_visible_page: number;
     has_next_page: boolean;
   };
-  data: {
-    mal_id: number;
+  data: MangaNews[];
+}
+
+export interface MangaTopic {
+  mal_id: number;
+  url: string;
+  title: string;
+  date: string;
+  author_username: string;
+  author_url: string;
+  comments: number;
+  last_comment: {
     url: string;
-    title: string;
-    date: string;
     author_username: string;
     author_url: string;
-    forum_url: string;
-    images: {
-      jpg: {
-        image_url: string;
-      };
-    };
-    comments: number;
-    excerpt: string;
-  }[];
+    date: string;
+  };
 }
 
 export interface GetMangaTopicsResponse {
-  data: {
-    mal_id: number;
-    url: string;
-    title: string;
-    date: string;
-    author_username: string;
-    author_url: string;
-    comments: number;
-    last_comment: {
-      url: string;
-      author_username: string;
-      author_url: string;
-      date: string;
-    };
-  }[];
+  data: MangaTopic[];
 }
 
 export interface GetMangaSearchResponse {

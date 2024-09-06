@@ -1,6 +1,6 @@
 import ErrorIndicator from "./indicators/ErrorIndicator";
 import Footer from "./layout/Footer";
-import HeaderToolbar from "./HeaderToolbar";
+import HeaderToolbar from "./layout/HeaderToolbar";
 import ItemDetails from "./ItemDetails";
 import ItemList from "./ItemList";
 import Layout from "./layout/Layout";

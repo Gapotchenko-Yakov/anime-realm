@@ -1,6 +1,5 @@
 import React from "react";
 import { ErrorIndicator, LoadingIndicator } from "../../components";
-import NoDataIndicator from "../../components/indicators/NoDataIndicator";
 
 interface WithIndicatorsProps {
   isLoading: boolean;
@@ -24,8 +23,8 @@ const withIndicatorsHOC = <P extends object>(
     if (error)
       return <ErrorIndicator message={errorMessage} {...(props as P)} />;
     if (isLoading) return <LoadingIndicator {...(props as P)} />;
-    if (noData)
-      return <NoDataIndicator message={noDataMessage} {...(props as P)} />;
+    // if (noData)
+    //   return <NoDataIndicator message={noDataMessage} {...(props as P)} />;
     return <Wrapped {...(props as P)} />;
   };
 

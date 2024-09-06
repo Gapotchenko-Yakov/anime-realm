@@ -39,7 +39,8 @@ const MangaPage: React.FC = () => {
         alt={mangaFull.data.title}
       />
       <p>{mangaFull.data.synopsis}</p>
-      <p>Published: {mangaFull.data.published.string}</p>
+      <p>Published from: {mangaFull.data.published.from}</p>
+      <p>Published to: {mangaFull.data.published.to}</p>
       <p>Chapters: {mangaFull.data.chapters}</p>
       <p>Volumes: {mangaFull.data.volumes}</p>
       <p>Score: {mangaFull.data.score}</p>

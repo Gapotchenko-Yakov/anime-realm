@@ -46,7 +46,10 @@ export const useMangaFullById = (
   });
 };
 
-export const useMangaById = (id: number, options?: any) => {
+export const useMangaById = (
+  id: number,
+  options?: any
+): UseQueryResult<GetMangaByIdResponse, Error> => {
   return useQuery({
     queryKey: ["manga", id],
     queryFn: async () => {
@@ -57,7 +60,10 @@ export const useMangaById = (id: number, options?: any) => {
   });
 };
 
-export const useMangaCharacters = (id: number, options?: any) => {
+export const useMangaCharacters = (
+  id: number,
+  options?: any
+): UseQueryResult<GetMangaCharactersResponse, Error> => {
   return useQuery({
     queryKey: ["manga", id, "characters"],
     queryFn: async () => {
@@ -70,7 +76,10 @@ export const useMangaCharacters = (id: number, options?: any) => {
   });
 };
 
-export const useMangaNews = (id: number, options?: any) => {
+export const useMangaNews = (
+  id: number,
+  options?: any
+): UseQueryResult<GetMangaNewsResponse, Error> => {
   return useQuery({
     queryKey: ["manga", id, "news"],
     queryFn: async () => {
@@ -83,7 +92,10 @@ export const useMangaNews = (id: number, options?: any) => {
   });
 };
 
-export const useMangaTopics = (id: number, options?: any) => {
+export const useMangaTopics = (
+  id: number,
+  options?: any
+): UseQueryResult<GetMangaTopicsResponse, Error> => {
   return useQuery({
     queryKey: ["manga", id, "forum"],
     queryFn: async () => {
@@ -99,7 +111,7 @@ export const useMangaTopics = (id: number, options?: any) => {
 export const useMangaSearch = (
   params: GetMangaSearchQueryParameters,
   options?: any
-) => {
+): UseQueryResult<GetMangaSearchResponse, Error> => {
   return useQuery({
     queryKey: ["manga", "search", params],
     queryFn: async () => {

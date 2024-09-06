@@ -1,6 +1,6 @@
 import React from "react";
 import { ErrorIndicator, LoadingIndicator } from "../../components";
-import NoDataIndicator from "../../components/NoDataIndicator";
+import NoDataIndicator from "../../components/indicators/NoDataIndicator";
 
 interface WithIndicatorsProps {
   isLoading: boolean;

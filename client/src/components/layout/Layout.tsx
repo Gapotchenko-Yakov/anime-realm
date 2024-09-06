@@ -1,9 +1,9 @@
 import { useTheme } from "@mui/material/styles";
 
-import HeaderToolbar from "./HeaderToolbar/HeaderToolbar";
+import HeaderToolbar from "./HeaderToolbar";
 import { Outlet } from "react-router-dom";
 import { AppBar, Box } from "@mui/material";
-import { useComponentsStore } from "../lib/zustand/useComponentsStore";
+import { useComponentsStore } from "../../lib/zustand/useComponentsStore";
 import NavigationPanel from "./NavigationPanel";
 
 const Layout = () => {

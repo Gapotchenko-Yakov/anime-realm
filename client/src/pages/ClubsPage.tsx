@@ -3,7 +3,7 @@ import { useGetClubsSearch } from "../lib/tanstack-query/useClubsQueries";
 import { Typography, Box, TextField, Button, useTheme } from "@mui/material";
 import { ClubSearchDataItem } from "../types/api/clubs";
 import { ErrorIndicator, LoadingIndicator } from "../components";
-import NoDataIndicator from "../components/NoDataIndicator";
+import NoDataIndicator from "../components/indicators/NoDataIndicator";
 
 const ClubsPage: React.FC = () => {
   const [query, setQuery] = useState<string>("");

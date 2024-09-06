@@ -1,5 +1,5 @@
-import ErrorIndicator from "./ErrorIndicator";
-import LoadingIndicator from "./LoadingIndicator";
+import ErrorIndicator from "./indicators/ErrorIndicator";
+import LoadingIndicator from "./indicators/LoadingIndicator";
 import {
   List,
   ListItem,

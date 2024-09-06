@@ -2,8 +2,8 @@ import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 
-import { useComponentsStore } from "../lib/zustand/useComponentsStore";
-import HeaderToolbar from "./HeaderToolbar/HeaderToolbar";
+import { useComponentsStore } from "../../lib/zustand/useComponentsStore";
+import HeaderToolbar from "./HeaderToolbar";
 import NavigationPanel from "./NavigationPanel";
 
 const drawerWidth = 240;

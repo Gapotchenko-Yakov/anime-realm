@@ -8,7 +8,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { useComponentsStore } from "../lib/zustand/useComponentsStore";
+import { useComponentsStore } from "../../lib/zustand/useComponentsStore";
 import {
   Reddit as RedditIcon,
   Facebook as FacebookIcon,

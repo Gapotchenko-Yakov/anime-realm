@@ -3,8 +3,8 @@ import React, { useMemo } from "react";
 import { useGetAnimeListQuery } from "../../../lib/tanstack-query/useAnimeQueries";
 import { useNavigate } from "react-router-dom";
 import { useComponentsStore } from "../../../lib/zustand/useComponentsStore";
-import LoadingIndicator from "../../LoadingIndicator";
-import ErrorIndicator from "../../ErrorIndicator";
+import LoadingIndicator from "../../indicators/LoadingIndicator";
+import ErrorIndicator from "../../indicators/ErrorIndicator";
 
 interface Option {
   id: number;

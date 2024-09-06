@@ -1,5 +1,5 @@
-import LoadingIndicator from "./LoadingIndicator";
-import ErrorIndicator from "./ErrorIndicator";
+import LoadingIndicator from "./indicators/LoadingIndicator";
+import ErrorIndicator from "./indicators/ErrorIndicator";
 import {
   Avatar,
   Button,

@@ -35,7 +35,9 @@ app.use(
 );
 
 // Serve static files
-app.use(express.static("public"));
+// app.use(express.static("public"));
+
+app.use(express.static(path.join(__dirname, "../client/dist")));
 
 // WebSocket with Socket.IO
 const httpServer = http.createServer(app);

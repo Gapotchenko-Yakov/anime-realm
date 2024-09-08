@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import io, { Socket } from "socket.io-client";
+
+const socketUrl = import.meta.env.VITE_SOCKET_URL;
+
 import {
   TextField,
   Button,
@@ -43,7 +46,7 @@ const Chat = ({ userId }: ChatProps) => {
   const { palette } = useTheme();
 
   useEffect(() => {
-    const newSocket = io("http://localhost:8080");
+    const newSocket = io(socketUrl);
     setSocket(newSocket);
 
     newSocket.on("initialMessages", (messages: Message[]) => {

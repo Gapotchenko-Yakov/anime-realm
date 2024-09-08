@@ -6,8 +6,13 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const http = require("http");
 const { Server } = require("socket.io");
+const dotenv = require("dotenv");
+const path = require("path");
 
-const PORT = 8080;
+dotenv.config();
+
+const PORT = process.env.PORT || 3000;
+const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
 
 const app = express();
 
@@ -17,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: clientUrl,
     methods: ["GET", "POST"],
     credentials: true,
   })
@@ -43,7 +48,7 @@ app.use(express.static(path.join(__dirname, "../client/dist")));
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: clientUrl,
     methods: ["GET", "POST"],
     credentials: true,
   },

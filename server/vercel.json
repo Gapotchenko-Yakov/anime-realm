@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "env": {
+    "PORT": "3000",
+    "DATABASE_URL": "database_url",
+    "JWT_SECRET": "jwt_secret",
+    "CLIENT_URL": "https://anime-realm-client.vercel.app/"
+  }
+}

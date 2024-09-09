@@ -12,8 +12,6 @@ import NotFoundPage from "./pages/NotFoundPage";
 import Chat from "./components/Chat";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ClubsPage from "./pages/ClubsPage";
-import MangaPage from "./pages/MangaInfoContainer";
-import MangaInfo from "./pages/MangaInfoContainer";
 import MangaInfoContainer from "./pages/MangaInfoContainer";
 
 const App = () => {

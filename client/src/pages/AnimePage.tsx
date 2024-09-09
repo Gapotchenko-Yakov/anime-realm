@@ -234,9 +234,7 @@ const AnimePage = () => {
               renderItem={(item) => (
                 <PaginationItem
                   component={Link}
-                  to={`/anime-page${
-                    item.page === 1 ? "" : `?page=${item.page}`
-                  }`}
+                  to={`/anime${item.page === 1 ? "" : `?page=${item.page}`}`}
                   {...item}
                 />
               )}

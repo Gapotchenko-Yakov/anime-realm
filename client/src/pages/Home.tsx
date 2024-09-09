@@ -5,7 +5,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate("/anime-page"); // Перенаправление на /new-page
+    navigate("/anime"); // Перенаправление на /new-page
   }, [navigate]);
 
   return <p>Redirecting...</p>;

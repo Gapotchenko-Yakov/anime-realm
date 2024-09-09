@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import io, { Socket } from "socket.io-client";
 
-const socketUrl = import.meta.env.VITE_SOCKET_URL;
+// const socketUrl = import.meta.env.VITE_SOCKET_URL;
+const socketUrl = "https://anime-realm-server.vercel.app";
 
 import {
   TextField,
@@ -47,6 +48,7 @@ const Chat = ({ userId }: ChatProps) => {
 
   useEffect(() => {
     const newSocket = io(socketUrl);
+    console.log("🚀 ~ useEffect ~ socketUrl:", socketUrl);
     setSocket(newSocket);
 
     newSocket.on("initialMessages", (messages: Message[]) => {

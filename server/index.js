@@ -11,8 +11,9 @@ const path = require("path");
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
-const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
+const PORT = process.env.PORT || 8080;
+// const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
+const clientUrl = "https://anime-realm-client.vercel.app";
 
 const app = express();
 
@@ -44,6 +45,10 @@ app.use(
 
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
+app.get("/", (req, res) => {
+  res.json("Hello");
+});
+
 // WebSocket with Socket.IO
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
@@ -53,8 +58,6 @@ const io = new Server(httpServer, {
     credentials: true,
   },
 });
-
-const chatNamespace = io.of("/chat");
 
 const rooms = ["general", "room1", "room2", "room3"];
 const messagesByRoom = {

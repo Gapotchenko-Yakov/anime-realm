@@ -12,9 +12,9 @@ const path = require("path");
 dotenv.config();
 
 const PORT = process.env.PORT || 8080;
-const clientUrl =
-  process.env.CLIENT_URL || "https://anime-realm-client.vercel.app";
-// const clientUrl = "https://anime-realm-client.vercel.app";
+// const clientUrl =
+// process.env.CLIENT_URL || "https://anime-realm-client.vercel.app";
+const clientUrl = "https://anime-realm-client.vercel.app";
 
 const app = express();
 

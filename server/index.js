@@ -14,7 +14,7 @@ dotenv.config();
 const PORT = process.env.PORT || 8080;
 // const clientUrl =
 // process.env.CLIENT_URL || "https://anime-realm-client.vercel.app";
-const clientUrl = "https://anime-realm-client.vercel.app";
+// const clientUrl = "https://anime-realm-client.vercel.app";
 
 const app = express();
 
@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(
   cors({
-    origin: clientUrl,
+    origin: "https://anime-realm-client.vercel.app",
     methods: ["GET", "POST"],
     credentials: true,
   })
@@ -54,7 +54,7 @@ app.get("/", (req, res) => {
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: clientUrl,
+    origin: "https://anime-realm-client.vercel.app",
     methods: ["GET", "POST"],
     credentials: true,
   },

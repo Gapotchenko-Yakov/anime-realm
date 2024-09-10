@@ -1,23 +1,3 @@
-/**
- * getMangaFullById
- * https://api.jikan.moe/v4/manga/{id}/full
- *
- * getMangaById
- * https://api.jikan.moe/v4/manga/{id}
- *
- * getMangaCharacters
- * https://api.jikan.moe/v4/manga/{id}/characters
- *
- * getMangaNews
- * https://api.jikan.moe/v4/manga/{id}/news
- *
- * getMangaTopics
- * https://api.jikan.moe/v4/manga/{id}/forum
- *
- * getMangaSearch
- * https://api.jikan.moe/v4/manga
- */
-
 import {
   GetMangaFullByIdResponse,
   GetMangaByIdResponse,
@@ -30,9 +10,14 @@ import {
 import apiClient from "../services/apiClient";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 
+/**
+ * Hook to fetch manga's full details by ID
+ * @param {number} id - The ID of the manga
+ * @returns {UseQueryResult<GetMangaFullByIdResponse, Error>}
+ * @see {@link https://docs.api.jikan.moe/#tag/manga/operation/getMangaFullById}
+ */
 export const useMangaFullById = (
-  id: number,
-  options?: any
+  id: number
 ): UseQueryResult<GetMangaFullByIdResponse, Error> => {
   return useQuery({
     queryKey: ["manga", id, "full"],
@@ -42,13 +27,17 @@ export const useMangaFullById = (
       );
       return data;
     },
-    ...options,
   });
 };
 
+/**
+ * Hook to fetch basic manga information by ID
+ * @param {number} id - The ID of the manga
+ * @returns {UseQueryResult<GetMangaByIdResponse, Error>}
+ * @see {@link https://docs.api.jikan.moe/#tag/manga/operation/getMangaById}
+ */
 export const useMangaById = (
-  id: number,
-  options?: any
+  id: number
 ): UseQueryResult<GetMangaByIdResponse, Error> => {
   return useQuery({
     queryKey: ["manga", id],
@@ -56,13 +45,17 @@ export const useMangaById = (
       const { data } = await apiClient.get<GetMangaByIdResponse>(`manga/${id}`);
       return data;
     },
-    ...options,
   });
 };
 
+/**
+ * Hook to fetch manga's characters by ID
+ * @param {number} id - The ID of the manga
+ * @returns {UseQueryResult<GetMangaCharactersResponse, Error>}
+ * @see {@link https://docs.api.jikan.moe/#tag/manga/operation/getMangaCharacters}
+ */
 export const useMangaCharacters = (
-  id: number,
-  options?: any
+  id: number
 ): UseQueryResult<GetMangaCharactersResponse, Error> => {
   return useQuery({
     queryKey: ["manga", id, "characters"],
@@ -72,13 +65,17 @@ export const useMangaCharacters = (
       );
       return data;
     },
-    ...options,
   });
 };
 
+/**
+ * Hook to fetch manga's news by ID
+ * @param {number} id - The ID of the manga
+ * @returns {UseQueryResult<GetMangaNewsResponse, Error>}
+ * @see {@link https://docs.api.jikan.moe/#tag/manga/operation/getMangaNews}
+ */
 export const useMangaNews = (
-  id: number,
-  options?: any
+  id: number
 ): UseQueryResult<GetMangaNewsResponse, Error> => {
   return useQuery({
     queryKey: ["manga", id, "news"],
@@ -88,13 +85,17 @@ export const useMangaNews = (
       );
       return data;
     },
-    ...options,
   });
 };
 
+/**
+ * Hook to fetch manga's forum topics by ID
+ * @param {number} id - The ID of the manga
+ * @returns {UseQueryResult<GetMangaTopicsResponse, Error>}
+ * @see {@link https://docs.api.jikan.moe/#tag/manga/operation/getMangaTopics}
+ */
 export const useMangaTopics = (
-  id: number,
-  options?: any
+  id: number
 ): UseQueryResult<GetMangaTopicsResponse, Error> => {
   return useQuery({
     queryKey: ["manga", id, "forum"],
@@ -104,13 +105,17 @@ export const useMangaTopics = (
       );
       return data;
     },
-    ...options,
   });
 };
 
+/**
+ * Hook to search for manga
+ * @param {GetMangaSearchQueryParameters} params - Search parameters
+ * @returns {UseQueryResult<GetMangaSearchResponse, Error>}
+ * @see {@link https://docs.api.jikan.moe/#tag/manga/operation/getMangaSearch}
+ */
 export const useMangaSearch = (
-  params: GetMangaSearchQueryParameters,
-  options?: any
+  params: GetMangaSearchQueryParameters
 ): UseQueryResult<GetMangaSearchResponse, Error> => {
   return useQuery({
     queryKey: ["manga", "search", params],
@@ -120,6 +125,5 @@ export const useMangaSearch = (
       });
       return data;
     },
-    ...options,
   });
 };

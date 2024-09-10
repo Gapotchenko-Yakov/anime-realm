@@ -15,7 +15,7 @@ import {
  * @param {number} id - The ID of the character
  * @returns {UseQueryResult<CharacterFullResponse, Error>}
  */
-export const useCharacterFullById = (
+export const useGetCharacterFullById = (
   id: number
 ): UseQueryResult<CharacterFullResponse, Error> => {
   return useQuery({
@@ -34,7 +34,7 @@ export const useCharacterFullById = (
  * @param {number} id - The ID of the character
  * @returns {UseQueryResult<CharacterResponse, Error>}
  */
-export const useCharacterById = (
+export const useGetCharacterById = (
   id: number
 ): UseQueryResult<CharacterResponse, Error> => {
   return useQuery({
@@ -53,7 +53,7 @@ export const useCharacterById = (
  * @param {number} id - The ID of the character
  * @returns {UseQueryResult<CharacterAnimeResponse, Error>}
  */
-export const useCharacterAnime = (
+export const useGetCharacterAnime = (
   id: number
 ): UseQueryResult<CharacterAnimeResponse, Error> => {
   return useQuery({
@@ -72,7 +72,7 @@ export const useCharacterAnime = (
  * @param {number} id - The ID of the character
  * @returns {UseQueryResult<CharacterMangaResponse, Error>}
  */
-export const useCharacterManga = (
+export const useGetCharacterManga = (
   id: number
 ): UseQueryResult<CharacterMangaResponse, Error> => {
   return useQuery({
@@ -91,7 +91,7 @@ export const useCharacterManga = (
  * @param {number} id - The ID of the character
  * @returns {UseQueryResult<CharacterVoiceActorsResponse, Error>}
  */
-export const useCharacterVoiceActors = (
+export const useGetCharacterVoiceActors = (
   id: number
 ): UseQueryResult<CharacterVoiceActorsResponse, Error> => {
   return useQuery({
@@ -110,7 +110,7 @@ export const useCharacterVoiceActors = (
  * @param {number} id - The ID of the character
  * @returns {UseQueryResult<CharacterPicturesResponse, Error>}
  */
-export const useCharacterPictures = (
+export const useGetCharacterPictures = (
   id: number
 ): UseQueryResult<CharacterPicturesResponse, Error> => {
   return useQuery({
@@ -129,7 +129,7 @@ export const useCharacterPictures = (
  * @param {object} params - Search parameters
  * @returns {UseQueryResult<CharactersSearchResponse, Error>}
  */
-export const useCharactersSearch = (
+export const useGetCharactersSearch = (
   params: any
 ): UseQueryResult<CharactersSearchResponse, Error> => {
   return useQuery({

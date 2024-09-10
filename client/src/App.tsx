@@ -13,6 +13,7 @@ import Chat from "./components/Chat";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ClubsPage from "./pages/ClubsPage";
 import MangaInfoContainer from "./pages/MangaInfoContainer";
+import CharactersPage from "./pages/CharactersPage";
 
 const App = () => {
   const { mode: themeMode } = useThemeStore();
@@ -38,7 +39,7 @@ const App = () => {
               <Route path="clubs/" element={<ClubsPage />} />
 
               <Route path="anime-list/" element={<AnimeList />} />
-              <Route path="characters/" element={<Home />} />
+              <Route path="characters/" element={<CharactersPage />} />
               <Route path="genres/" element={<Home />} />
               <Route
                 path="chat/"

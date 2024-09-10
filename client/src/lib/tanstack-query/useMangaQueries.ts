@@ -16,7 +16,7 @@ import { useQuery, UseQueryResult } from "@tanstack/react-query";
  * @returns {UseQueryResult<GetMangaFullByIdResponse, Error>}
  * @see {@link https://docs.api.jikan.moe/#tag/manga/operation/getMangaFullById}
  */
-export const useMangaFullById = (
+export const useGetMangaFullById = (
   id: number
 ): UseQueryResult<GetMangaFullByIdResponse, Error> => {
   return useQuery({
@@ -36,7 +36,7 @@ export const useMangaFullById = (
  * @returns {UseQueryResult<GetMangaByIdResponse, Error>}
  * @see {@link https://docs.api.jikan.moe/#tag/manga/operation/getMangaById}
  */
-export const useMangaById = (
+export const useGetMangaById = (
   id: number
 ): UseQueryResult<GetMangaByIdResponse, Error> => {
   return useQuery({
@@ -54,7 +54,7 @@ export const useMangaById = (
  * @returns {UseQueryResult<GetMangaCharactersResponse, Error>}
  * @see {@link https://docs.api.jikan.moe/#tag/manga/operation/getMangaCharacters}
  */
-export const useMangaCharacters = (
+export const useGetMangaCharacters = (
   id: number
 ): UseQueryResult<GetMangaCharactersResponse, Error> => {
   return useQuery({
@@ -74,7 +74,7 @@ export const useMangaCharacters = (
  * @returns {UseQueryResult<GetMangaNewsResponse, Error>}
  * @see {@link https://docs.api.jikan.moe/#tag/manga/operation/getMangaNews}
  */
-export const useMangaNews = (
+export const useGetMangaNews = (
   id: number
 ): UseQueryResult<GetMangaNewsResponse, Error> => {
   return useQuery({
@@ -94,7 +94,7 @@ export const useMangaNews = (
  * @returns {UseQueryResult<GetMangaTopicsResponse, Error>}
  * @see {@link https://docs.api.jikan.moe/#tag/manga/operation/getMangaTopics}
  */
-export const useMangaTopics = (
+export const useGetMangaTopics = (
   id: number
 ): UseQueryResult<GetMangaTopicsResponse, Error> => {
   return useQuery({
@@ -114,7 +114,7 @@ export const useMangaTopics = (
  * @returns {UseQueryResult<GetMangaSearchResponse, Error>}
  * @see {@link https://docs.api.jikan.moe/#tag/manga/operation/getMangaSearch}
  */
-export const useMangaSearch = (
+export const useGetMangaSearch = (
   params: GetMangaSearchQueryParameters
 ): UseQueryResult<GetMangaSearchResponse, Error> => {
   return useQuery({

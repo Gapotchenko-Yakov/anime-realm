@@ -21,14 +21,14 @@ import { useGetAnimeFullByIdQuery } from "../lib/tanstack-query/useAnimeQueries"
 import { ErrorIndicator, LoadingIndicator } from "../components";
 
 const AnimeInfo = () => {
-  const { animeId = "1" } = useParams<{ animeId: string }>();
+  const { id = "1" } = useParams<{ id: string }>();
   const { palette } = useTheme();
 
   const {
     data: { data: animeData } = {},
     error,
     isLoading,
-  } = useGetAnimeFullByIdQuery(parseInt(animeId));
+  } = useGetAnimeFullByIdQuery(parseInt(id));
 
   if (isLoading) return <LoadingIndicator />; // Показываем индикатор загрузки
   if (error) return <ErrorIndicator message="Ошибка загрузки данных" />;

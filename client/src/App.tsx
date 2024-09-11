@@ -14,6 +14,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ClubsPage from "./pages/ClubsPage";
 import MangaInfoContainer from "./pages/MangaInfoContainer";
 import CharactersPage from "./pages/CharactersPage";
+import CharacterInfo from "./pages/CharacterInfo";
 
 const App = () => {
   const { mode: themeMode } = useThemeStore();
@@ -51,7 +52,9 @@ const App = () => {
                   </Stack>
                 }
               />
-              <Route path="anime-info/:animeId" element={<AnimeInfo />} />
+              <Route path="anime-info/:id" element={<AnimeInfo />} />
+              <Route path="character-info/:id" element={<CharacterInfo />} />
+
               <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>

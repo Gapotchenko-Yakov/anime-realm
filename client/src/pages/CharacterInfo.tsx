@@ -34,7 +34,7 @@ const CharacterInfo = () => {
     <Container maxWidth="lg" sx={{ my: 6 }}>
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
-          <Box sx={{ bgcolor: palette.background.alt, borderRadius: 3, p: 3 }}>
+          <Box sx={{ p: 3 }}>
             <Grid container spacing={4}>
               <Grid item xs={6} md={4}>
                 <Card>
@@ -51,16 +51,16 @@ const CharacterInfo = () => {
                 <Typography variant="h4" gutterBottom>
                   {character?.name}
                 </Typography>
-                <Typography variant="subtitle1" color="textSecondary">
+                <Typography variant="subtitle1" color={palette.secondary[500]}>
                   {character?.name_kanji}
                 </Typography>
-                <Typography variant="body1" paragraph>
+                <Typography variant="body1" color={palette.secondary.main}>
                   {character?.about}
                 </Typography>
-                <Typography variant="body2" color="textSecondary">
+                <Typography variant="body2" color={palette.secondary[400]}>
                   Nicknames: {character?.nicknames.join(", ")}
                 </Typography>
-                <Typography variant="body2" color="textSecondary">
+                <Typography variant="body2" color={palette.secondary[400]}>
                   Favorites: {character?.favorites}
                 </Typography>
               </Grid>
@@ -95,7 +95,10 @@ const CharacterInfo = () => {
                         <Typography variant="h6">
                           {entry.anime.title}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary">
+                        <Typography
+                          variant="body2"
+                          color={palette.secondary[400]}
+                        >
                           Role: {entry.role}
                         </Typography>
                       </CardContent>
@@ -134,7 +137,10 @@ const CharacterInfo = () => {
                         <Typography variant="h6">
                           {entry.manga.title}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary">
+                        <Typography
+                          variant="body2"
+                          color={palette.secondary[400]}
+                        >
                           Role: {entry.role}
                         </Typography>
                       </CardContent>
@@ -170,7 +176,10 @@ const CharacterInfo = () => {
                         <Typography variant="h6">
                           {voice.person.name}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary">
+                        <Typography
+                          variant="body2"
+                          color={palette.secondary[400]}
+                        >
                           Language: {voice.language}
                         </Typography>
                       </Box>

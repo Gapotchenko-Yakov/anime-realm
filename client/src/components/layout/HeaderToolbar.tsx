@@ -19,7 +19,6 @@ import {
   Book as BookIcon,
 } from "@mui/icons-material";
 import { useTheme } from "@mui/material";
-import Search from "./components/Search";
 import { useThemeStore } from "../../lib/zustand/useThemeStore";
 import { useComponentsStore } from "../../lib/zustand/useComponentsStore";
 
@@ -86,60 +85,60 @@ const HeaderToolbar = () => {
           </Stack>
         </Stack>
 
-        <Search />
+        <Stack direction="row" spacing={8} justifyContent="end">
+          <Stack spacing={0} direction="row">
+            <IconButton
+              to="/anime"
+              component={RouterLink}
+              sx={{ color: "inherit" }}
+            >
+              <MovieIcon fontSize="large" />
+            </IconButton>
+            <IconButton
+              to="/characters"
+              component={RouterLink}
+              sx={{ color: "inherit" }}
+            >
+              <PersonIcon fontSize="large" />
+            </IconButton>
+            <IconButton
+              to="/reviews"
+              component={RouterLink}
+              sx={{ color: "inherit" }}
+            >
+              <RateReviewIcon fontSize="large" />
+            </IconButton>
+            <IconButton
+              to="/top"
+              component={RouterLink}
+              sx={{ color: "inherit" }}
+            >
+              <StarIcon fontSize="large" />
+            </IconButton>
+            <IconButton
+              to="/manga"
+              component={RouterLink}
+              sx={{ color: "inherit" }}
+            >
+              <BookIcon fontSize="large" />
+            </IconButton>
+          </Stack>
 
-        <Stack spacing={0} direction="row">
-          <IconButton
-            to="/anime"
-            component={RouterLink}
-            sx={{ color: "inherit" }}
-          >
-            <MovieIcon fontSize="large" />
-          </IconButton>
-          <IconButton
-            to="/characters"
-            component={RouterLink}
-            sx={{ color: "inherit" }}
-          >
-            <PersonIcon fontSize="large" />
-          </IconButton>
-          <IconButton
-            to="/reviews"
-            component={RouterLink}
-            sx={{ color: "inherit" }}
-          >
-            <RateReviewIcon fontSize="large" />
-          </IconButton>
-          <IconButton
-            to="/top"
-            component={RouterLink}
-            sx={{ color: "inherit" }}
-          >
-            <StarIcon fontSize="large" />
-          </IconButton>
-          <IconButton
-            to="/manga"
-            component={RouterLink}
-            sx={{ color: "inherit" }}
-          >
-            <BookIcon fontSize="large" />
-          </IconButton>
-        </Stack>
-
-        <Stack spacing={1} direction="row">
-          <Button
-            sx={{ color: "inherit" }}
-            variant="outlined"
-            data-collapse-toggle="navbar-default"
-            type="button"
-            aria-controls="navbar-default"
-            aria-expanded="true"
-          >
-            Menu
-          </Button>
-          <IconButton sx={{ color: "inherit" }} onClick={() => toggleMode()}>
-            {mode === "dark" ? <DarkMode /> : <LightMode />}
-          </IconButton>
+          <Stack spacing={1} direction="row">
+            <Button
+              sx={{ color: "inherit" }}
+              variant="outlined"
+              data-collapse-toggle="navbar-default"
+              type="button"
+              aria-controls="navbar-default"
+              aria-expanded="true"
+            >
+              Menu
+            </Button>
+            <IconButton sx={{ color: "inherit" }} onClick={() => toggleMode()}>
+              {mode === "dark" ? <DarkMode /> : <LightMode />}
+            </IconButton>
+          </Stack>
         </Stack>
       </Stack>
     </Toolbar>

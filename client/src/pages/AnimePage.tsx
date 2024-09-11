@@ -125,14 +125,6 @@ const AnimePage = () => {
                 bgcolor: palette.background.alt,
               }}
             >
-              <Typography
-                variant="h2"
-                textAlign="left"
-                p={2}
-                color={palette.secondary[100]}
-              >
-                Anime List
-              </Typography>
               <ImageList
                 variant="standard"
                 cols={matchDownSm ? 1 : matchDownMd ? 2 : matchDownLg ? 3 : 4}

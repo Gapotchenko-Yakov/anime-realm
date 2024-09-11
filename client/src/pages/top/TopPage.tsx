@@ -1,16 +1,34 @@
-import { Container } from "@mui/material";
+import {
+  Container,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Typography,
+} from "@mui/material";
 import TopAnimeList from "./TopAnimeList";
 import TopMangaList from "./TopMangaList";
+import TopPeopleList from "./TopPeopleList";
+import TopCharactersList from "./TopCharactersList";
+import TopReviewsList from "./TopReviewsList";
+import { useState } from "react";
 
-const maptypeToTheComponent = {
-  anime: <TopAnimeList />,
-  manga: <TopMangaList />,
-  //   people: <TopPeopleList />,
-  //   characters: <TopCharactersList />,
-  //   reviews: <TopReviewsList />,
+type OptionsList = "anime" | "manga" | "people" | "characters" | "reviews";
+
+const mapTypeToTheContent = {
+  anime: { component: <TopAnimeList />, label: "Top Anime" },
+  manga: { component: <TopMangaList />, label: "Top Manga" },
+  people: { component: <TopPeopleList />, label: "Top People" },
+  characters: { component: <TopCharactersList />, label: "Top Characters" },
+  reviews: { component: <TopReviewsList />, label: "Top Reviews" },
 };
 
 const TopPage: React.FC = () => {
+  const [selectedList, setSelectedList] = useState<OptionsList>("anime");
+
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    setSelectedList(event.target.value as OptionsList);
+  };
+
   return (
     <Container>
       <Typography variant="h4" gutterBottom>
@@ -21,16 +39,13 @@ const TopPage: React.FC = () => {
         onChange={handleChange}
         fullWidth
         variant="outlined"
-        margin="normal"
+        sx={{ my: 3 }}
       >
-        <MenuItem value="anime">Top Anime</MenuItem>
-        <MenuItem value="manga">Top Manga</MenuItem>
-        {/* Добавьте другие MenuItem для других списков */}
-        {/* <MenuItem value="people">Top People</MenuItem>
-        <MenuItem value="characters">Top Characters</MenuItem>
-        <MenuItem value="reviews">Top Reviews</MenuItem> */}
+        {Object.entries(mapTypeToTheContent).map(([type, content]) => (
+          <MenuItem value={type}>{content.label}</MenuItem>
+        ))}
       </Select>
-      <ContentComponent />
+      {mapTypeToTheContent[selectedList].component}
     </Container>
   );
 };

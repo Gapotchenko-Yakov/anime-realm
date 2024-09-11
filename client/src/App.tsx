@@ -15,6 +15,7 @@ import ClubsPage from "./pages/ClubsPage";
 import MangaInfoContainer from "./pages/MangaInfoContainer";
 import CharactersPage from "./pages/CharactersPage";
 import CharacterInfo from "./pages/CharacterInfo";
+import TopPage from "./pages/top/TopPage";
 
 const App = () => {
   const { mode: themeMode } = useThemeStore();
@@ -38,6 +39,7 @@ const App = () => {
               <Route path="anime/" element={<AnimePage />} />
               <Route path="manga/" element={<MangaInfoContainer />} />
               <Route path="clubs/" element={<ClubsPage />} />
+              <Route path="top/" element={<TopPage />} />
 
               <Route path="anime-list/" element={<AnimeList />} />
               <Route path="characters/" element={<CharactersPage />} />

@@ -8,6 +8,7 @@ import {
   GetPersonMangaResponse,
   GetPersonPicturesResponse,
   GetPeopleSearchResponse,
+  GetPeopleSearchQueryParameters,
 } from "../../types/api/people";
 
 /**
@@ -132,19 +133,19 @@ export const useGetPersonPicturesQuery = (
 
 /**
  * Hook to search for people
- * @param {string} query - The search query
+ * @param {GetPeopleSearchQueryParameters} args - The search query
  * @returns {UseQueryResult<GetPeopleSearchResponse, Error>}
  * @see {@link https://docs.api.jikan.moe/#tag/people/operation/getPeopleSearch}
  */
 export const useGetPeopleSearchQuery = (
-  query: string
+  args: GetPeopleSearchQueryParameters
 ): UseQueryResult<GetPeopleSearchResponse, Error> => {
   return useQuery({
-    queryKey: ["people", "search", query],
+    queryKey: ["people", "search", args],
     queryFn: async () => {
-      const { data } = await apiClient.get<GetPeopleSearchResponse>(
-        `people?search=${query}`
-      );
+      const { data } = await apiClient.get<GetPeopleSearchResponse>("people", {
+        params: args,
+      });
       return data;
     },
   });

@@ -1,4 +1,4 @@
-export type GetPersonFullByIdResponse = {
+export interface GetPersonFullByIdResponse {
   data: {
     mal_id: number;
     url: string;
@@ -91,9 +91,9 @@ export type GetPersonFullByIdResponse = {
       };
     }[];
   };
-};
+}
 
-export type GetPersonByIdResponse = {
+export interface GetPersonByIdResponse {
   data: {
     mal_id: number;
     url: string;
@@ -111,9 +111,9 @@ export type GetPersonByIdResponse = {
     favorites: number;
     about: string;
   };
-};
+}
 
-export type GetPersonAnimeResponse = {
+export interface GetPersonAnimeResponse {
   data: {
     position: string;
     anime: {
@@ -134,9 +134,9 @@ export type GetPersonAnimeResponse = {
       title: string;
     };
   }[];
-};
+}
 
-export type GetPersonVoicesResponse = {
+export interface GetPersonVoicesResponse {
   data: {
     role: string;
     anime: {
@@ -172,9 +172,9 @@ export type GetPersonVoicesResponse = {
       name: string;
     };
   }[];
-};
+}
 
-export type GetPersonMangaResponse = {
+export interface GetPersonMangaResponse {
   data: {
     position: string;
     manga: {
@@ -195,17 +195,17 @@ export type GetPersonMangaResponse = {
       title: string;
     };
   }[];
-};
+}
 
-export type GetPersonPicturesResponse = {
+export interface GetPersonPicturesResponse {
   data: {
     jpg: {
       image_url: string;
     };
   }[];
-};
+}
 
-export type GetPeopleSearchResponse = {
+export interface GetPeopleSearchResponse {
   data: {
     mal_id: number;
     url: string;
@@ -232,4 +232,13 @@ export type GetPeopleSearchResponse = {
       per_page: number;
     };
   };
-};
+}
+
+export interface GetPeopleSearchQueryParameters {
+  page: number;
+  limit: number;
+  q: string;
+  order_by: "mal_id" | "name" | "birthday" | "favorites";
+  sort: "desc" | "asc";
+  letter: string;
+}
